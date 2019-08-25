@@ -2,15 +2,12 @@ import React from 'react'
 import '../index.css'
 import Layout from '../components/Layout'
 import { Paper, Typography } from '@material-ui/core'
+import Auth from '../components/Auth'
 
-// const homeStyle = {
-//   border: '5px dashed yellow;',
-// }
-
-export default () => {
+const Home = () => {
   return (
     <Layout>
-      <Paper className="home-sweet-home">
+      <Paper>
         <center>
           <Typography variant="h2">HOME PAGE</Typography>
         </center>
@@ -18,3 +15,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default Auth(Home)

@@ -7,17 +7,18 @@ import Team from './pages/Team'
 import Player from './pages/Player'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
+import Auth from './components/Auth'
 
 export default () => {
   return (
     <Router>
+      <Route path="/login" component={Login} exact />
+      <Route path="/signup" component={SignUp} exact />
       <Route path="/" component={Home} exact />
       <Route path="/stats" component={Stats} exact />
       <Route path="/teams" component={Teams} exact />
       <Route path="/team/:id" component={Team} exact />
       <Route path="/player/:id" component={Player} exact />
-      <Route path="/login" component={Login} exact />
-      <Route path="/signup" component={SignUp} exact />
     </Router>
   )
 }

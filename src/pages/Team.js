@@ -1,8 +1,16 @@
 import React from 'react'
 import Layout from '../components/Layout'
 import axios from 'axios'
-import { Paper, Typography, Card, CardContent } from '@material-ui/core'
+import {
+  Paper,
+  Typography,
+  Card,
+  CardContent,
+  Button,
+  Icon,
+} from '@material-ui/core'
 import { Link } from 'react-router-dom'
+import Auth from '../components/Auth'
 
 class Team extends React.Component {
   constructor() {
@@ -25,22 +33,31 @@ class Team extends React.Component {
         },
       ],
     }
+
+    this.favorite = this.favorite.bind(this)
+  }
+  favorite(e) {
+    this.setState({
+      favorite: !this.state.favorite,
+    })
   }
 
   async componentDidMount() {
     const data = await axios.get(
-      `http://localhost:8080/team/${this.props.match.params.id}`
+      `http://localhost:8080/team/${this.props.match.params.id}`,
+      {
+        headers: { authorization: window.localStorage.getItem('auth') },
+      }
     )
 
     const team = data.data.teams[0]
 
-    console.log(data.data.teams[0])
-    // console.log(playerData.data.teams[0].roster.roster)
-
     const playerData = await axios.get(
-      `http://localhost:8080/team/${this.props.match.params.id}/roster`
+      `http://localhost:8080/team/${this.props.match.params.id}/roster`,
+      {
+        headers: { authorization: window.localStorage.getItem('auth') },
+      }
     )
-    console.log(playerData)
 
     const roster = playerData.data.teams[0].roster.roster
 
@@ -68,6 +85,7 @@ class Team extends React.Component {
 
   render() {
     return (
+      // <Auth>
       <Layout>
         <div>
           <Paper
@@ -118,6 +136,12 @@ class Team extends React.Component {
                   key={player.fullName}
                 >
                   <CardContent>
+                    <Typography align="center">
+                      {this.state.favorite && <Icon color="primary">star</Icon>}
+                    </Typography>
+                    <Typography align="center">
+                      <Button onClick={this.favorite}>Favorite</Button>
+                    </Typography>
                     <Typography variant="h5"> {player.fullName}</Typography>
                     <Typography variant="subtitle2">
                       Position:
@@ -137,8 +161,9 @@ class Team extends React.Component {
           </Paper>
         </div>
       </Layout>
+      // </Auth>
     )
   }
 }
 
-export default Team
+export default Auth(Team)

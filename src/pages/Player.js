@@ -3,6 +3,7 @@ import '../index.css'
 import Layout from '../components/Layout'
 import axios from 'axios'
 import { Paper, Typography, Card, CardContent } from '@material-ui/core'
+import Auth from '../components/Auth'
 
 class Player extends React.Component {
   constructor() {
@@ -36,7 +37,10 @@ class Player extends React.Component {
 
   async componentDidMount() {
     const playersData = await axios.get(
-      `http://localhost:8080/team/player/${this.props.match.params.id}`
+      `http://localhost:8080/team/player/${this.props.match.params.id}`,
+      {
+        headers: { authorization: window.localStorage.getItem('auth') },
+      }
     )
     console.log(playersData)
     const player = playersData.data.people[0]
@@ -81,7 +85,7 @@ class Player extends React.Component {
               marginTop: 15,
               border: '4px solid orange',
               color: 'orange',
-              backgroundColor: 'black',
+              backgroundColor: 'white',
             }}
             elevation={10}
           >
@@ -96,7 +100,7 @@ class Player extends React.Component {
               style={{
                 width: '400px',
                 margin: '10px',
-                backgroundColor: 'black',
+                backgroundColor: 'white',
                 border: '5px solid orange',
               }}
               key={this.state.fullName}
@@ -172,4 +176,4 @@ class Player extends React.Component {
   }
 }
 
-export default Player
+export default Auth(Player)

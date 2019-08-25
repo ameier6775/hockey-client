@@ -1,20 +1,43 @@
 import React, { Component } from 'react'
-import { Typography, Card, CardContent } from '@material-ui/core'
+import { Typography, Card, CardContent, Button, Icon } from '@material-ui/core'
 import Axios from 'axios'
 import Layout from '../components/Layout'
 import { Link } from 'react-router-dom'
+import Auth from '../components/Auth'
 
-export default class Teams extends Component {
+class Teams extends Component {
   constructor() {
     super()
     this.state = {
-      data: [{}],
+      data: [
+        {
+          id: '',
+          name: '',
+          conference: {
+            name: '',
+          },
+          venue: {
+            name: '',
+          },
+          officialSiteUrl: '',
+        },
+      ],
     }
+
+    this.favorite = this.favorite.bind(this)
   }
+
+  favorite(e) {
+    this.setState({
+      favorite: !this.state.favorite,
+    })
+  }
+
   async componentDidMount() {
-    const data = await Axios.get('http://localhost:8080/team', {
+    const data = await Axios.get('http://localhost:8080/teams', {
       headers: { authorization: window.localStorage.getItem('auth') },
     })
+    console.log(data)
     this.setState({ data: data.data.teams })
   }
   render() {
@@ -46,6 +69,12 @@ export default class Teams extends Component {
                   }}
                 >
                   <CardContent>
+                    <Typography align="center">
+                      {this.state.favorite && <Icon color="primary">star</Icon>}
+                    </Typography>
+                    <Typography align="center">
+                      <Button onClick={this.favorite}>Favorite</Button>
+                    </Typography>
                     <Typography variant="h5"> {team.name}</Typography>
                     <Typography variant="subtitle2">
                       Conference:
@@ -76,3 +105,5 @@ export default class Teams extends Component {
     )
   }
 }
+
+export default Auth(Teams)
