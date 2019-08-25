@@ -69,12 +69,6 @@ class Teams extends Component {
                   }}
                 >
                   <CardContent>
-                    <Typography align="center">
-                      {this.state.favorite && <Icon color="primary">star</Icon>}
-                    </Typography>
-                    <Typography align="center">
-                      <Button onClick={this.favorite}>Favorite</Button>
-                    </Typography>
                     <Typography variant="h5"> {team.name}</Typography>
                     <Typography variant="subtitle2">
                       Conference:

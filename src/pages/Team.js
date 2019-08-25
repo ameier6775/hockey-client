@@ -96,6 +96,13 @@ class Team extends React.Component {
             elevation={10}
           >
             <center>
+              <Typography>
+                {this.state.favorite && (
+                  <Icon fontSize="large" color="primary">
+                    star
+                  </Icon>
+                )}
+              </Typography>
               <Typography variant="h3">
                 Home of the {this.state.name}
               </Typography>
@@ -113,6 +120,11 @@ class Team extends React.Component {
               <Typography variant="subtitle2">
                 Check Out The Official Team Site{' '}
                 <a href={this.state.website}> Here</a>
+              </Typography>
+              <Typography align="center">
+                <Button color="primary" onClick={this.favorite}>
+                  Favorite
+                </Button>
               </Typography>
             </center>
           </Paper>
@@ -136,12 +148,6 @@ class Team extends React.Component {
                   key={player.fullName}
                 >
                   <CardContent>
-                    <Typography align="center">
-                      {this.state.favorite && <Icon color="primary">star</Icon>}
-                    </Typography>
-                    <Typography align="center">
-                      <Button onClick={this.favorite}>Favorite</Button>
-                    </Typography>
                     <Typography variant="h5"> {player.fullName}</Typography>
                     <Typography variant="subtitle2">
                       Position:

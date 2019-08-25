@@ -2,7 +2,14 @@ import React from 'react'
 import '../index.css'
 import Layout from '../components/Layout'
 import axios from 'axios'
-import { Paper, Typography, Card, CardContent } from '@material-ui/core'
+import {
+  Paper,
+  Typography,
+  Card,
+  CardContent,
+  Button,
+  Icon,
+} from '@material-ui/core'
 import Auth from '../components/Auth'
 
 class Player extends React.Component {
@@ -33,6 +40,12 @@ class Player extends React.Component {
       weight: '',
       season: '',
     }
+    this.favorite = this.favorite.bind(this)
+  }
+  favorite(e) {
+    this.setState({
+      favorite: !this.state.favorite,
+    })
   }
 
   async componentDidMount() {
@@ -44,9 +57,6 @@ class Player extends React.Component {
     )
     console.log(playersData)
     const player = playersData.data.people[0]
-    // const player = playersData.data.people[0]
-
-    // console.log(playersData.data.people[0].fullName)
 
     this.setState({
       name: player.fullName,
@@ -84,7 +94,6 @@ class Player extends React.Component {
               top: 0,
               marginTop: 15,
               border: '4px solid orange',
-              color: 'orange',
               backgroundColor: 'white',
             }}
             elevation={10}
@@ -110,12 +119,19 @@ class Player extends React.Component {
                   textAlign: 'left',
                 }}
               >
-                <Typography className="orange" variant="h3">
+                <Typography align="center">
+                  {this.state.favorite && (
+                    <Icon fontSize="large" color="primary">
+                      star
+                    </Icon>
+                  )}
+                </Typography>
+                <Typography variant="h3">
                   <center>
                     <b>#{this.state.number}</b>
                   </center>
                 </Typography>
-                <Typography className="orange" variant="h6">
+                <Typography variant="h6">
                   <center>
                     <b>
                       {this.state.captain ? 'Captain' : ''}
@@ -123,25 +139,25 @@ class Player extends React.Component {
                     </b>
                   </center>
                 </Typography>
-                <Typography className="orange" variant="subtitle1">
+                <Typography variant="subtitle1">
                   <b>Position: </b>{' '}
                   <div className="player-card-content">
                     <em>{this.state.position.shortName}</em>
                   </div>
                 </Typography>
-                <Typography className="orange" variant="subtitle1">
+                <Typography variant="subtitle1">
                   <b>Team:</b>
                   <div className="player-card-content">
                     <em>{this.state.team.name}</em>
                   </div>
                 </Typography>
-                <Typography className="orange" variant="subtitle1">
+                <Typography variant="subtitle1">
                   <b>Age:</b>{' '}
                   <div className="player-card-content">
                     <em>{this.state.age}</em>
                   </div>
                 </Typography>
-                <Typography className="orange" variant="subtitle1">
+                <Typography variant="subtitle1">
                   <b>Physicality: </b>
                   <div className="player-card-content">
                     <em>
@@ -149,23 +165,28 @@ class Player extends React.Component {
                     </em>
                   </div>
                 </Typography>
-                <Typography className="orange">
+                <Typography>
                   <b>Shoots: </b>
                   <div className="player-card-content">
                     <em>{this.state.shoots}</em>
                   </div>
                 </Typography>
-                <Typography className="orange" variant="subtitle1">
+                <Typography variant="subtitle1">
                   <b>Nationality:</b>{' '}
                   <div className="player-card-content">
                     <em>{this.state.nationality}</em>
                   </div>
                 </Typography>
-                <Typography className="orange" variant="subtitle1">
+                <Typography variant="subtitle1">
                   <b>From: </b>{' '}
                   <div className="player-card-content">
                     <em>{this.state.birthCity}</em>
                   </div>
+                </Typography>
+                <Typography align="center">
+                  <Button color="primary" onClick={this.favorite}>
+                    Favorite
+                  </Button>
                 </Typography>
               </CardContent>
             </Card>
