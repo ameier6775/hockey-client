@@ -106,23 +106,29 @@ class Team extends React.Component {
                   </Icon>
                 )}
               </Typography>
-              <Typography variant="h3">
-                Home of the {this.state.name}
+              <Typography variant="h2">
+                <b>Home of the {this.state.name}</b>
               </Typography>
               <Typography variant="h4">
-                {this.state.conference} Conference, {this.state.division}{' '}
-                Division
+                <em>
+                  {this.state.conference} Conference, {this.state.division}{' '}
+                  Division
+                </em>
               </Typography>
               <Typography variant="h6">
-                Ever Since Time: {this.state.teamStart}
+                <b>Ever Since Time: {this.state.teamStart}</b>
               </Typography>
               <Typography variant="subtitle1">
-                Currently residing at {this.state.venue} in{' '}
-                {this.state.location}
+                <em>
+                  Currently residing at the {this.state.venue} in{' '}
+                  {this.state.location}
+                </em>
               </Typography>
-              <Typography variant="subtitle2">
-                Check Out The Official Team Site{' '}
-                <a href={this.state.website}> Here</a>
+              <Typography variant="caption">
+                <b>
+                  Check Out The Official Team Site{' '}
+                  <a href={this.state.website}> Here</a>
+                </b>
               </Typography>
               <Typography align="center">
                 <Button
