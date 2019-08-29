@@ -5,7 +5,7 @@ import {
   createMuiTheme,
   MuiThemeProvider,
 } from '@material-ui/core/styles'
-import { blue, red, grey, orange } from '@material-ui/core/colors'
+import { red, grey, orange } from '@material-ui/core/colors'
 
 export const AuthContext = React.createContext({ auth: '', setAuth: () => {} })
 const theme = responsiveFontSizes(

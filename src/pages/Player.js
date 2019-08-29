@@ -11,6 +11,7 @@ import {
   Icon,
 } from '@material-ui/core'
 import Auth from '../components/Auth'
+import PlayerCardContent from '../components/PlayerCardContent'
 
 class Player extends React.Component {
   constructor() {
@@ -55,7 +56,6 @@ class Player extends React.Component {
         headers: { authorization: window.localStorage.getItem('auth') },
       }
     )
-    console.log(playersData)
     const player = playersData.data.people[0]
 
     this.setState({
@@ -95,6 +95,7 @@ class Player extends React.Component {
               marginTop: 15,
               border: '4px solid orange',
               backgroundColor: 'white',
+              padding: '15px',
             }}
             elevation={10}
           >
@@ -139,50 +140,39 @@ class Player extends React.Component {
                     </b>
                   </center>
                 </Typography>
-                <Typography variant="subtitle1">
-                  <b>Position: </b>{' '}
-                  <div className="player-card-content">
-                    <em>{this.state.position.shortName}</em>
-                  </div>
-                </Typography>
-                <Typography variant="subtitle1">
-                  <b>Team:</b>
-                  <div className="player-card-content">
-                    <em>{this.state.team.name}</em>
-                  </div>
-                </Typography>
-                <Typography variant="subtitle1">
-                  <b>Age:</b>{' '}
-                  <div className="player-card-content">
-                    <em>{this.state.age}</em>
-                  </div>
-                </Typography>
-                <Typography variant="subtitle1">
-                  <b>Physicality: </b>
-                  <div className="player-card-content">
-                    <em>
-                      {this.state.height} {this.state.weight}
-                    </em>
-                  </div>
-                </Typography>
-                <Typography>
-                  <b>Shoots: </b>
-                  <div className="player-card-content">
-                    <em>{this.state.shoots}</em>
-                  </div>
-                </Typography>
-                <Typography variant="subtitle1">
-                  <b>Nationality:</b>{' '}
-                  <div className="player-card-content">
-                    <em>{this.state.nationality}</em>
-                  </div>
-                </Typography>
-                <Typography variant="subtitle1">
-                  <b>From: </b>{' '}
-                  <div className="player-card-content">
-                    <em>{this.state.birthCity}</em>
-                  </div>
-                </Typography>
+                <PlayerCardContent
+                  header="Position: "
+                  description={this.state.position.shortName}
+                ></PlayerCardContent>
+                <PlayerCardContent
+                  header="Team: "
+                  description={this.state.team.name}
+                ></PlayerCardContent>
+                <PlayerCardContent
+                  header="Age: "
+                  description={this.state.age}
+                ></PlayerCardContent>
+                <PlayerCardContent
+                  header="Height: "
+                  description={this.state.height}
+                ></PlayerCardContent>
+                <PlayerCardContent
+                  header="Weight: "
+                  description={this.state.weight}
+                ></PlayerCardContent>
+                <PlayerCardContent
+                  header="Shoots: "
+                  description={this.state.shoots}
+                ></PlayerCardContent>
+                <PlayerCardContent
+                  header="Nationality: "
+                  description={this.state.nationality}
+                ></PlayerCardContent>
+                <PlayerCardContent
+                  header="From: "
+                  description={this.state.birthCity}
+                ></PlayerCardContent>
+
                 <Typography align="center">
                   <Button color="primary" onClick={this.favorite}>
                     Favorite

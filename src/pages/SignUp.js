@@ -21,8 +21,6 @@ class User extends React.Component {
     this.state = {
       userName: '',
       password: '',
-      verifyPassword: '',
-      signedIn: false,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -30,16 +28,11 @@ class User extends React.Component {
   }
 
   async handleSubmit(e) {
-    console.log('here')
     e.preventDefault()
-    const response = await Axios.post(`http://localhost:8080/signup`, {
+    await Axios.post(`http://localhost:8080/signup`, {
       userName: this.state.userName,
       password: this.state.password,
-      verifyPassword: this.state.verifyPassword,
-      signedIn: true,
     })
-    console.log(response)
-    console.log(this.state)
   }
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value })
@@ -57,7 +50,7 @@ class User extends React.Component {
             margin="normal"
             label="Username"
             onChange={this.handleChange}
-            name="user"
+            name="userName"
             type="text"
             placeholder="userName"
             variant="outlined"

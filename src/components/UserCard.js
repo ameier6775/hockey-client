@@ -1,7 +1,5 @@
 import React from 'react'
 import { Card, CardContent, Typography } from '@material-ui/core'
-import Layout from './Layout'
-import { grey } from '@material-ui/core/colors'
 
 export default class UserCard extends React.Component {
   constructor(props) {

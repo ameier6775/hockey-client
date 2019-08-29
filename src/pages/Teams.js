@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Typography, Card, CardContent, Button, Icon } from '@material-ui/core'
+import { Typography, Card, CardContent, Button } from '@material-ui/core'
 import Axios from 'axios'
 import Layout from '../components/Layout'
 import { Link } from 'react-router-dom'
@@ -9,6 +9,8 @@ class Teams extends Component {
   constructor() {
     super()
     this.state = {
+      userId: '',
+      teamId: '',
       data: [
         {
           id: '',
@@ -23,21 +25,23 @@ class Teams extends Component {
         },
       ],
     }
-
-    this.favorite = this.favorite.bind(this)
+    // this.favorite = this.favorite.bind(this)
   }
 
-  favorite(e) {
-    this.setState({
-      favorite: !this.state.favorite,
-    })
-  }
+  // async favorite(e) {
+  //   e.preventDefault()
+
+  //   // await Axios.post(`http://localhost:8080/teams`, {
+  //   //   userId: this.state,
+  //   //   teamId: this.state.data.
+  //   // })
+  //   console.log(this.state.data)
+  // }
 
   async componentDidMount() {
     const data = await Axios.get('http://localhost:8080/teams', {
       headers: { authorization: window.localStorage.getItem('auth') },
     })
-    console.log(data)
     this.setState({ data: data.data.teams })
   }
   render() {
@@ -90,6 +94,15 @@ class Teams extends Component {
                       <a href={team.officialSiteUrl}>Website</a>
                     </Typography>
                     <Link to={`/team/${team.id}`}>View Team</Link>
+                    {/* <Typography align="center">
+                      <Button
+                        type="submit"
+                        color="primary"
+                        onClick={this.favorite}
+                      >
+                        Favorite
+                      </Button>
+                    </Typography> */}
                   </CardContent>
                 </Card>
               )

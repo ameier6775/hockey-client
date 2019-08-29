@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { Redirect } from 'react-router-dom'
 
 export default Component => props => {
@@ -12,9 +12,8 @@ export default Component => props => {
   }, [])
 
   const loggedIn = checkAuth()
-  console.log('auth status', loggedIn)
+  // console.log('auth status', loggedIn)
   if (loggedIn) {
-    console.log('here')
     return <Component {...props} />
   } else if (!loggedIn) {
     return <Redirect to="/login" />

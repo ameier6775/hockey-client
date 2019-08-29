@@ -7,7 +7,6 @@ import Team from './pages/Team'
 import Player from './pages/Player'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
-import Auth from './components/Auth'
 
 export default () => {
   return (

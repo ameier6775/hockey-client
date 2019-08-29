@@ -16,6 +16,7 @@ class Team extends React.Component {
   constructor() {
     super()
     this.state = {
+      favTeam: '',
       id: '',
       conference: '',
       division: '',
@@ -35,11 +36,13 @@ class Team extends React.Component {
     }
 
     this.favorite = this.favorite.bind(this)
+    // this.handleSubmit = this.handleSubmit.bind(this)
   }
   favorite(e) {
     this.setState({
       favorite: !this.state.favorite,
     })
+    // console.log(this.state)
   }
 
   async componentDidMount() {
@@ -122,7 +125,11 @@ class Team extends React.Component {
                 <a href={this.state.website}> Here</a>
               </Typography>
               <Typography align="center">
-                <Button color="primary" onClick={this.favorite}>
+                <Button
+                  type="submit"
+                  color="primary"
+                  onClick={this.favorite && this.handleSubmit}
+                >
                   Favorite
                 </Button>
               </Typography>
@@ -148,7 +155,10 @@ class Team extends React.Component {
                   key={player.fullName}
                 >
                   <CardContent>
-                    <Typography variant="h5"> {player.fullName}</Typography>
+                    <Typography align="center" variant="h5">
+                      {' '}
+                      {player.fullName}
+                    </Typography>
                     <Typography variant="subtitle2">
                       Position:
                       {player ? player.position : ''}
