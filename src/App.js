@@ -44,28 +44,8 @@ const theme = responsiveFontSizes(
     },
   })
 )
-export default class App extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      auth: '',
-    }
-
-    this.handleAuthUpload = this.handleAuthUpload.bind(this)
-  }
-
-  handleAuthUpload(token) {
-    this.setState({
-      auth: token,
-    })
-  }
-
-  render() {
-    return (
-      <MuiThemeProvider theme={theme}>
-        <Routes />
-      </MuiThemeProvider>
-    )
-  }
-}
+export default () => (
+  <MuiThemeProvider theme={theme}>
+    <Routes />
+  </MuiThemeProvider>
+)
