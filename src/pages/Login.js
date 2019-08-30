@@ -22,6 +22,8 @@ class Login extends React.Component {
       password: this.state.password,
     })
     window.localStorage.setItem('auth', response.headers.authorization)
+    let path = '/teams'
+    this.props.history.push(path)
   }
 
   handleChange(e) {

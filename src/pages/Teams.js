@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Typography, Card, CardContent, Button } from '@material-ui/core'
+import { Typography, Card, CardContent } from '@material-ui/core'
 import Axios from 'axios'
 import Layout from '../components/Layout'
 import { Link } from 'react-router-dom'
@@ -9,8 +9,6 @@ class Teams extends Component {
   constructor() {
     super()
     this.state = {
-      userId: '',
-      teamId: '',
       data: [
         {
           id: '',
@@ -25,18 +23,7 @@ class Teams extends Component {
         },
       ],
     }
-    // this.favorite = this.favorite.bind(this)
   }
-
-  // async favorite(e) {
-  //   e.preventDefault()
-
-  //   // await Axios.post(`http://localhost:8080/teams`, {
-  //   //   userId: this.state,
-  //   //   teamId: this.state.data.
-  //   // })
-  //   console.log(this.state.data)
-  // }
 
   async componentDidMount() {
     const data = await Axios.get('http://localhost:8080/teams', {

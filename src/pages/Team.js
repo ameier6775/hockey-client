@@ -16,7 +16,8 @@ class Team extends React.Component {
   constructor() {
     super()
     this.state = {
-      favTeam: '',
+      favorite: '',
+      userId: '',
       id: '',
       conference: '',
       division: '',
@@ -36,23 +37,28 @@ class Team extends React.Component {
     }
 
     this.favorite = this.favorite.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
   }
-  favorite(e) {
+  async favorite(e) {
     this.setState({
       favorite: !this.state.favorite,
     })
-    // console.log(this.state)
+    await axios.post('http:localhost:8080/user/team', {})
+    console.log(this.state)
   }
 
   async componentDidMount() {
+    const userData = await axios.get(`http://localhost:8080/user/id`, {
+      headers: { authorization: window.localStorage.getItem('auth') },
+    })
+    const userId = userData.data.userId
+    console.log(userId)
+
     const data = await axios.get(
       `http://localhost:8080/team/${this.props.match.params.id}`,
       {
         headers: { authorization: window.localStorage.getItem('auth') },
       }
     )
-
     const team = data.data.teams[0]
 
     const playerData = await axios.get(
@@ -61,7 +67,6 @@ class Team extends React.Component {
         headers: { authorization: window.localStorage.getItem('auth') },
       }
     )
-
     const roster = playerData.data.teams[0].roster.roster
 
     const mappedFromApi = roster.map(player => {
@@ -74,6 +79,7 @@ class Team extends React.Component {
     })
 
     this.setState({
+      userId: userId,
       id: team.id,
       conference: team.conference.name,
       division: team.division.name,
@@ -131,11 +137,7 @@ class Team extends React.Component {
                 </b>
               </Typography>
               <Typography align="center">
-                <Button
-                  type="submit"
-                  color="primary"
-                  onClick={this.favorite && this.handleSubmit}
-                >
+                <Button type="submit" color="primary" onClick={this.favorite}>
                   Favorite
                 </Button>
               </Typography>

@@ -33,6 +33,8 @@ class User extends React.Component {
       userName: this.state.userName,
       password: this.state.password,
     })
+    let path = '/teams'
+    this.props.history.push(path)
   }
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value })
