@@ -9,7 +9,7 @@ const Home = () => {
     <Layout>
       <Paper>
         <center>
-          <Typography variant="h2">HOME PAGE</Typography>
+          <Typography variant="h1">HOME PAGE</Typography>
         </center>
       </Paper>
     </Layout>

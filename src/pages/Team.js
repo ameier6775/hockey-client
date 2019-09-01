@@ -38,12 +38,22 @@ class Team extends React.Component {
 
     this.favorite = this.favorite.bind(this)
   }
+
   async favorite(e) {
+    e.preventDefault()
     this.setState({
       favorite: !this.state.favorite,
     })
-    await axios.post('http:localhost:8080/user/team', {})
-    console.log(this.state)
+    await axios.post(
+      `http://localhost:8080/user/team`,
+      {
+        userId: this.state.userId,
+        teamId: this.state.id,
+      },
+      { headers: { authorization: window.localStorage.getItem('auth') } }
+    )
+    let path = '/teams'
+    this.props.history.push(path)
   }
 
   async componentDidMount() {
@@ -51,7 +61,6 @@ class Team extends React.Component {
       headers: { authorization: window.localStorage.getItem('auth') },
     })
     const userId = userData.data.userId
-    console.log(userId)
 
     const data = await axios.get(
       `http://localhost:8080/team/${this.props.match.params.id}`,
@@ -90,6 +99,7 @@ class Team extends React.Component {
       venue: team.venue.name,
       roster: mappedFromApi,
     })
+    // console.log(this.state)
   }
 
   render() {
@@ -105,7 +115,7 @@ class Team extends React.Component {
             elevation={10}
           >
             <center>
-              <Typography>
+              <Typography name="favoriteTeam">
                 {this.state.favorite && (
                   <Icon fontSize="large" color="primary">
                     star

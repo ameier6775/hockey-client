@@ -33,7 +33,7 @@ class User extends React.Component {
       userName: this.state.userName,
       password: this.state.password,
     })
-    let path = '/teams'
+    let path = '/login'
     this.props.history.push(path)
   }
   handleChange(e) {
