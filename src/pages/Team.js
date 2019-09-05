@@ -1,22 +1,21 @@
 import React from 'react'
 import Layout from '../components/Layout'
 import axios from 'axios'
-import {
-  Paper,
-  Typography,
-  Card,
-  CardContent,
-  Button,
-  Icon,
-} from '@material-ui/core'
+import { Paper, Typography, Card, CardContent, Icon } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import Auth from '../components/Auth'
+import FavButton from '../components/FavButton'
+import UnfavButton from '../components/UnfavButton'
+import TeamGreeting from '../components/TeamGreeting'
 
 class Team extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    this.handleFavorite = this.handleFavorite.bind(this)
+    this.handleUnfavorite = this.handleUnfavorite.bind(this)
+
     this.state = {
-      favorite: '',
+      isFavorited: '',
       userId: '',
       id: '',
       conference: '',
@@ -35,14 +34,12 @@ class Team extends React.Component {
         },
       ],
     }
-
-    this.favorite = this.favorite.bind(this)
   }
 
-  async favorite(e) {
+  async handleFavorite(e) {
     e.preventDefault()
     this.setState({
-      favorite: !this.state.favorite,
+      isFavorited: true,
     })
     await axios.post(
       `http://localhost:8080/user/team`,
@@ -50,10 +47,28 @@ class Team extends React.Component {
         userId: this.state.userId,
         teamId: this.state.id,
       },
-      { headers: { authorization: window.localStorage.getItem('auth') } }
+      { headers: { authorization: window.localStorage.getItem('auth') } },
+      console.log('favorited')
     )
-    let path = '/teams'
-    this.props.history.push(path)
+    // let path = '/teams'
+    // this.props.history.push(path)
+  }
+  async handleUnfavorite(e) {
+    e.preventDefault()
+    this.setState({
+      isFavorited: false,
+    })
+    await axios.patch(
+      `http://localhost:8080/user/team/delete`,
+      {
+        userId: this.state.userId,
+        teamId: this.state.id,
+      },
+      { headers: { authorization: window.localStorage.getItem('auth') } },
+      console.log('unfavorited')
+    )
+    // let path = '/teams'
+    // this.props.history.push(path)
   }
 
   async componentDidMount() {
@@ -99,10 +114,17 @@ class Team extends React.Component {
       venue: team.venue.name,
       roster: mappedFromApi,
     })
-    // console.log(this.state)
   }
 
   render() {
+    const isFavorited = this.state.isFavorited
+    let Button
+
+    if (isFavorited) {
+      Button = <UnfavButton onClick={this.handleUnfavorite} />
+    } else {
+      Button = <FavButton onClick={this.handleFavorite} />
+    }
     return (
       // <Auth>
       <Layout>
@@ -116,7 +138,7 @@ class Team extends React.Component {
           >
             <center>
               <Typography name="favoriteTeam">
-                {this.state.favorite && (
+                {this.state.isFavorited && (
                   <Icon fontSize="large" color="primary">
                     star
                   </Icon>
@@ -146,14 +168,17 @@ class Team extends React.Component {
                   <a href={this.state.website}> Here</a>
                 </b>
               </Typography>
-              <Typography align="center">
-                <Button type="submit" color="primary" onClick={this.favorite}>
-                  Favorite
-                </Button>
-              </Typography>
+              <TeamGreeting isFavorited={isFavorited} />
+              {Button}
             </center>
           </Paper>
-
+          {/* <Button
+                  type="submit"
+                  color="primary"
+                  onClick={this.isFavorited}
+                >
+                  Favorite
+                </Button> */}
           <Paper
             elevation={4}
             style={{

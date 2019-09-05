@@ -7,7 +7,6 @@ import Team from './pages/Team'
 import Player from './pages/Player'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
-import Succes from './components/Success'
 
 export default () => {
   return (

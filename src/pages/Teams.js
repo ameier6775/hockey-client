@@ -60,8 +60,10 @@ class Teams extends Component {
                   }}
                 >
                   <CardContent>
-                    <Typography variant="h5"> {team.name}</Typography>
-                    <Typography variant="subtitle2">
+                    <Typography variant="h5">
+                      <center>{team.name}</center>
+                    </Typography>
+                    {/* <Typography variant="subtitle2">
                       Conference:
                       {team.conference ? team.conference.name : ''}
                     </Typography>
@@ -71,7 +73,7 @@ class Teams extends Component {
                     </Typography>
                     <Typography>
                       Venue: {team.venue ? team.venue.name : ''}
-                    </Typography>
+                    </Typography> */}
                     <Typography
                       style={{
                         textAlign: 'center',
