@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import Auth from '../components/Auth'
 import FavButton from '../components/FavButton'
 import UnfavButton from '../components/UnfavButton'
-import TeamGreeting from '../components/TeamGreeting'
 
 class Team extends React.Component {
   constructor(props) {
@@ -31,6 +30,15 @@ class Team extends React.Component {
           fullName: null,
           jerseyNumber: null,
           position: null,
+        },
+      ],
+      statsSingleSeason: [
+        {
+          gamesPlayed: '',
+          wins: '',
+          losses: '',
+          ot: '',
+          pts: '',
         },
       ],
     }
@@ -102,7 +110,19 @@ class Team extends React.Component {
       }
     })
 
+    const teamData = await axios.get(
+      `http://localhost:8080/team/stats/${this.props.match.params.id}`,
+      {
+        headers: { authorization: window.localStorage.getItem('auth') },
+      }
+    )
+    const statsSingleSeason = teamData.data.stats[0].splits[0].stat
+    console.log(statsSingleSeason)
+
     this.setState({
+      statsSingleSeason: statsSingleSeason,
+      losses: statsSingleSeason.losses,
+      wins: statsSingleSeason.wins,
       userId: userId,
       id: team.id,
       conference: team.conference.name,
@@ -168,17 +188,21 @@ class Team extends React.Component {
                   <a href={this.state.website}> Here</a>
                 </b>
               </Typography>
-              <TeamGreeting isFavorited={isFavorited} />
-              {Button}
+              <br />
+              <br />
+              <Typography variant="h5">
+                {/* <em>Season Statistics:</em>{' '} */}
+                <em>
+                  {this.state.statsSingleSeason.wins} -{' '}
+                  {this.state.statsSingleSeason.losses} -{' '}
+                  {this.state.statsSingleSeason.ot} ,{' '}
+                  {this.state.statsSingleSeason.pts} points
+                </em>
+              </Typography>
+              <br />
+              <Typography isFavorited={isFavorited}>{Button}</Typography>
             </center>
           </Paper>
-          {/* <Button
-                  type="submit"
-                  color="primary"
-                  onClick={this.isFavorited}
-                >
-                  Favorite
-                </Button> */}
           <Paper
             elevation={4}
             style={{

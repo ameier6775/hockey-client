@@ -7,7 +7,6 @@ import Auth from '../components/Auth'
 import PlayerCardContent from '../components/PlayerCardContent'
 import FavButton from '../components/FavButton'
 import UnfavButton from '../components/UnfavButton'
-import TeamGreeting from '../components/FavGreeting'
 
 class Player extends React.Component {
   constructor(props) {
@@ -220,7 +219,6 @@ class Player extends React.Component {
                     {Button}
                   </Button>
                 </Typography> */}
-                <TeamGreeting isFavorited={isFavorited} />
                 <center>{Button}</center>
               </CardContent>
             </Card>

@@ -2,6 +2,7 @@ import React from 'react'
 import '../index.css'
 import Layout from '../components/Layout'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import { Paper, Typography, Card, CardContent } from '@material-ui/core'
 import Auth from '../components/Auth'
 import PlayerCardContent from '../components/PlayerCardContent'
@@ -93,21 +94,22 @@ class Stats extends React.Component {
                     width: '400px',
                     margin: '10px',
                     textAlign: 'left',
+                    border: '4px orange solid',
+                    padding: '10px',
                   }}
                 >
                   <CardContent>
-                    <Typography variant="h5">
-                      <center>{player.fullName}</center>
+                    <Typography variant="h4">
+                      <em>
+                        <center>{player.fullName}</center>
+                      </em>
                     </Typography>
-                    <Typography
-                      style={{
-                        textAlign: 'center',
-                        marginTop: '30px',
-                      }}
-                    >
-                      <a href={player.link}>Website</a>
-                    </Typography>
-                    {/* <Link to={`/team/player/${player.id}`}>View Player</Link> */}
+                    <br />
+                    <PlayerCardContent
+                      header="Current Team: "
+                      description={player.currentTeam.name}
+                    ></PlayerCardContent>
+                    <Link to={`/player/${player.id}`}>General Info</Link>
                   </CardContent>
                 </Card>
               )
