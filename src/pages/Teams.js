@@ -30,6 +30,7 @@ class Teams extends Component {
       headers: { authorization: window.localStorage.getItem('auth') },
     })
     this.setState({ data: data.data.teams })
+    // console.log(this.state.data)
   }
   render() {
     return (
@@ -63,17 +64,6 @@ class Teams extends Component {
                     <Typography variant="h5">
                       <center>{team.name}</center>
                     </Typography>
-                    {/* <Typography variant="subtitle2">
-                      Conference:
-                      {team.conference ? team.conference.name : ''}
-                    </Typography>
-                    <Typography>
-                      Location:
-                      {team.locationName}
-                    </Typography>
-                    <Typography>
-                      Venue: {team.venue ? team.venue.name : ''}
-                    </Typography> */}
                     <Typography
                       style={{
                         textAlign: 'center',
@@ -83,15 +73,6 @@ class Teams extends Component {
                       <a href={team.officialSiteUrl}>Website</a>
                     </Typography>
                     <Link to={`/team/${team.id}`}>View Team</Link>
-                    {/* <Typography align="center">
-                      <Button
-                        type="submit"
-                        color="primary"
-                        onClick={this.favorite}
-                      >
-                        Favorite
-                      </Button>
-                    </Typography> */}
                   </CardContent>
                 </Card>
               )

@@ -2,21 +2,22 @@ import React from 'react'
 import '../index.css'
 import Layout from '../components/Layout'
 import axios from 'axios'
-import {
-  Paper,
-  Typography,
-  Card,
-  CardContent,
-  Button,
-  Icon,
-} from '@material-ui/core'
+import { Paper, Typography, Card, CardContent, Icon } from '@material-ui/core'
 import Auth from '../components/Auth'
 import PlayerCardContent from '../components/PlayerCardContent'
+import FavButton from '../components/FavButton'
+import UnfavButton from '../components/UnfavButton'
+import TeamGreeting from '../components/FavGreeting'
 
 class Player extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    this.handleFavorite = this.handleFavorite.bind(this)
+    this.handleUnfavorite = this.handleUnfavorite.bind(this)
+
     this.state = {
+      isFavorited: false,
+      userId: '',
       name: '',
       firstName: '',
       playerId: '',
@@ -41,12 +42,38 @@ class Player extends React.Component {
       weight: '',
       season: '',
     }
-    this.favorite = this.favorite.bind(this)
   }
-  favorite(e) {
+  async handleFavorite(e) {
     this.setState({
-      favorite: !this.state.favorite,
+      isFavorited: true,
     })
+    await axios.post(
+      `http://localhost:8080/user/player`,
+      {
+        userId: this.state.userId,
+        playerId: this.state.playerId,
+      },
+      { headers: { authorization: window.localStorage.getItem('auth') } },
+      console.log('favorited')
+    )
+  }
+
+  async handleUnfavorite(e) {
+    e.preventDefault()
+    this.setState({
+      isFavorited: false,
+    })
+    await axios.patch(
+      `http://localhost:8080/user/player/delete`,
+      {
+        userId: this.state.userId,
+        playerId: this.state.playerId,
+      },
+      { headers: { authorization: window.localStorage.getItem('auth') } },
+      console.log('unfavorited')
+    )
+    // let path = '/teams'
+    // this.props.history.push(path)
   }
 
   async componentDidMount() {
@@ -56,9 +83,16 @@ class Player extends React.Component {
         headers: { authorization: window.localStorage.getItem('auth') },
       }
     )
+    const userData = await axios.get(`http://localhost:8080/user/id`, {
+      headers: { authorization: window.localStorage.getItem('auth') },
+    })
+    const userId = userData.data.userId
+    console.log(userId)
+
     const player = playersData.data.people[0]
 
     this.setState({
+      userId: userId,
       name: player.fullName,
       firstName: player.firstName,
       playerId: player.id,
@@ -85,6 +119,15 @@ class Player extends React.Component {
   }
 
   render() {
+    const isFavorited = this.state.isFavorited
+    let Button
+
+    if (isFavorited) {
+      Button = <UnfavButton onClick={this.handleUnfavorite} />
+    } else {
+      Button = <FavButton onClick={this.handleFavorite} />
+    }
+
     return (
       <Layout>
         <div>
@@ -172,12 +215,13 @@ class Player extends React.Component {
                   header="From: "
                   description={this.state.birthCity}
                 ></PlayerCardContent>
-
-                <Typography align="center">
+                {/* <Typography align="center">
                   <Button color="primary" onClick={this.favorite}>
-                    Favorite
+                    {Button}
                   </Button>
-                </Typography>
+                </Typography> */}
+                <TeamGreeting isFavorited={isFavorited} />
+                <center>{Button}</center>
               </CardContent>
             </Card>
           </center>
@@ -186,5 +230,4 @@ class Player extends React.Component {
     )
   }
 }
-
 export default Auth(Player)

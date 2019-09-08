@@ -16,6 +16,10 @@ class Home extends Component {
           conference: {
             name: '',
           },
+          division: {
+            name: '',
+            nameShort: '',
+          },
           venue: {
             name: '',
           },
@@ -42,6 +46,7 @@ class Home extends Component {
     const favTeams = userData.data
     const teams = data.data.teams
     const userTeams = []
+    // console.log(data.data)
     teams.forEach(team => {
       favTeams.forEach(favTeam => {
         if (team.id === favTeam.teamId) {
@@ -97,9 +102,9 @@ class Home extends Component {
                       </center>
                     </Typography>
                     <Typography variant="overline">
-                      Location:
+                      Division:
                       <center>
-                        <em>{team.locationName}</em>
+                        <em>{team.division ? team.division.name : ''}</em>
                       </center>
                     </Typography>
                     <Typography variant="overline">
