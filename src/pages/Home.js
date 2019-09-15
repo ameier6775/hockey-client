@@ -9,28 +9,30 @@ class Home extends Component {
   constructor() {
     super()
     this.state = {
-      teams: [
-        {
-          id: '',
-          name: '',
-          conference: {
-            name: '',
-          },
-          division: {
-            name: '',
-            nameShort: '',
-          },
-          venue: {
-            name: '',
-          },
-          officialSiteUrl: '',
-        },
-      ],
-      favTeams: [
-        {
-          id: '',
-        },
-      ],
+      faceOffsRank: '',
+      goalsAgainstPerGame: '',
+      goalsAgainstPerGameRank: '',
+      goalsPerGame: '',
+      goalsPerGameRank: '',
+      losses: '',
+      lossesRank: '',
+      otl: '',
+      penaltyKillRank: '',
+      powerPlayRank: '',
+      points: '',
+      pointsRank: '',
+      shotsAllowedPerGame: '',
+      shotsPerGame: '',
+      venue: '',
+      wins: '',
+      winsRank: '',
+      favorite: false,
+      id: '',
+      userId: '',
+      division: '',
+      teamStart: '',
+      name: '',
+      location: '',
     }
   }
 
@@ -94,6 +96,7 @@ class Home extends Component {
                         <b>{team.name}</b>
                       </center>
                     </Typography>
+                    <br />
                     <br />
                     <Typography variant="overline">
                       Conference:

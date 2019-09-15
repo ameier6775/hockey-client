@@ -1,9 +1,8 @@
 import React from 'react'
 import '../index.css'
 import Layout from '../components/Layout'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { Paper, Typography, Card, CardContent } from '@material-ui/core'
+import { Typography, Card, CardContent } from '@material-ui/core'
 import Auth from '../components/Auth'
 import PlayerCardContent from '../components/PlayerCardContent'
 
@@ -40,32 +39,6 @@ class Stats extends React.Component {
         },
       ],
     }
-  }
-
-  async componentDidMount() {
-    const userData = await axios.get(`http://localhost:8080/user/id/players`, {
-      headers: { authorization: window.localStorage.getItem('auth') },
-    })
-
-    const favPlayers = []
-    const userPlayers = userData.data
-
-    await userPlayers.forEach(player => {
-      const playerId = player.playerId
-      const playersData = axios.get(
-        `http://localhost:8080/team/player/${playerId}`,
-        {
-          headers: {
-            authorization: window.localStorage.getItem('auth'),
-          },
-        }
-      )
-      playersData.then(response => {
-        const player = response.data.people[0]
-        favPlayers.push(player)
-        this.setState({ favPlayers: favPlayers })
-      })
-    })
   }
 
   render() {

@@ -14,22 +14,48 @@ class Team extends React.Component {
     this.handleUnfavorite = this.handleUnfavorite.bind(this)
 
     this.state = {
-      isFavorited: '',
-      userId: '',
+      faceOffsRank: '',
+      goalsAgainstPerGame: '',
+      goalsAgainstPerGameRank: '',
+      goalsPerGame: '',
+      goalsPerGameRank: '',
+      losses: '',
+      lossesRank: '',
+      otl: '',
+      penaltyKillRank: '',
+      powerPlayRank: '',
+      points: '',
+      pointsRank: '',
+      shotsAllowedPerGame: '',
+      shotsPerGame: '',
+      venue: '',
+      wins: '',
+      winsRank: '',
+      favorite: false,
       id: '',
-      conference: '',
+      userId: '',
       division: '',
       teamStart: '',
       name: '',
       location: '',
-      website: '',
-      venue: '',
+      // savePctgRank: '',
+      // shotsPerGameRank: '',
       roster: [
         {
           id: '',
-          fullName: null,
-          jerseyNumber: null,
-          position: null,
+          fullName: '',
+          jerseyNumber: '',
+          person: {
+            fullName: '',
+            id: '',
+            link: '',
+          },
+          position: {
+            abbreviation: '',
+            code: '',
+            name: '',
+            type: '',
+          },
         },
       ],
       statsSingleSeason: [
@@ -53,7 +79,7 @@ class Team extends React.Component {
   async handleFavorite(e) {
     e.preventDefault()
     this.setState({
-      isFavorited: true,
+      favorite: true,
     })
     await axios.post(
       `http://localhost:8080/user/team`,
@@ -70,7 +96,7 @@ class Team extends React.Component {
   async handleUnfavorite(e) {
     e.preventDefault()
     this.setState({
-      isFavorited: false,
+      favorite: false,
     })
     await axios.patch(
       `http://localhost:8080/user/team/delete`,
@@ -90,6 +116,9 @@ class Team extends React.Component {
       headers: { authorization: window.localStorage.getItem('auth') },
     })
     const userId = userData.data.userId
+    this.setState({
+      userId: userId,
+    })
 
     const data = await axios.get(
       `http://localhost:8080/team/${this.props.match.params.id}`,
@@ -97,61 +126,42 @@ class Team extends React.Component {
         headers: { authorization: window.localStorage.getItem('auth') },
       }
     )
-    const team = data.data.teams[0]
-
-    const playerData = await axios.get(
-      `http://localhost:8080/team/${this.props.match.params.id}/roster`,
-      {
-        headers: { authorization: window.localStorage.getItem('auth') },
-      }
-    )
-    const roster = playerData.data.teams[0].roster.roster
-
-    const mappedFromApi = roster.map(player => {
-      return {
-        id: player.person.id,
-        fullName: player.person.fullName,
-        jerseyNumber: player.jerseyNumber,
-        position: player.position.name,
-      }
-    })
-
-    const teamData = await axios.get(
-      `http://localhost:8080/team/stats/${this.props.match.params.id}`,
-      {
-        headers: { authorization: window.localStorage.getItem('auth') },
-      }
-    )
-    const statsSingleSeason = teamData.data.stats[0].splits[0].stat
-    const teamStatsRanking = teamData.data.stats[1].splits[0].stat
-
-    console.log(teamStatsRanking)
+    const team = data.data
 
     this.setState({
-      userId: userId,
-      statsSingleSeason: statsSingleSeason,
-      wins: statsSingleSeason.wins,
-      losses: statsSingleSeason.losses,
-      teamStatsRanking: teamStatsRanking,
-      goalsPerGame: teamStatsRanking.goalsPerGame,
-      goalsAgainstPerGame: teamStatsRanking.goalsAgainstPerGame,
+      favorite: team.favorite,
+      faceOffsRank: team.faceOffsRank,
+      goalsAgainstPerGame: team.goalsAgainstPerGameNums,
+      goalsAgainstPerGameRank: team.goalsAgainstPerGameRank,
+      goalsPerGame: team.goalsPerGameNums,
+      goalsPerGameRank: team.goalsPerGameRank,
+      losses: team.lossNums,
+      lossesRank: team.lossesRank,
+      otl: team.otNums,
+      penaltyKillRank: team.penaltyKillRank,
+      powerPlayRank: team.powerPlayRank,
+      points: team.ptsNums,
+      pointsRank: team.ptsRank,
+      shotsAllowedPerGame: team.shotsAllowedPerGameNums,
+      shotsPerGame: team.shotsPerGameNums,
+      venue: team.venue,
+      wins: team.winNums,
+      winsRank: team.winsRank,
       id: team.id,
-      conference: team.conference.name,
-      division: team.division.name,
+      division: team.division,
       teamStart: team.firstYearOfPlay,
       name: team.name,
-      location: team.venue.city,
-      website: team.officialSiteUrl,
-      venue: team.venue.name,
-      roster: mappedFromApi,
+      roster: team.roster,
+      // savePctgRank: '',
+      // shotsPerGameRank: '',
     })
   }
 
   render() {
-    const isFavorited = this.state.isFavorited
+    const favorite = this.state.favorite
     let Button
 
-    if (isFavorited) {
+    if (favorite) {
       Button = <UnfavButton onClick={this.handleUnfavorite} />
     } else {
       Button = <FavButton onClick={this.handleFavorite} />
@@ -169,56 +179,44 @@ class Team extends React.Component {
           >
             <center>
               <Typography name="favoriteTeam">
-                {this.state.isFavorited && (
+                {this.state.favorite && (
                   <Icon fontSize="large" color="primary">
                     star
                   </Icon>
                 )}
               </Typography>
+              <br />
               <Typography variant="h2">
-                <b>Home of the {this.state.name}</b>
+                <b>{this.state.name.toUpperCase()}</b>
               </Typography>
+              <br />
               <Typography variant="h4">
-                <em>
-                  {this.state.conference} Conference, {this.state.division}{' '}
-                  Division
-                </em>
+                <em>{this.state.division} Division</em>
               </Typography>
               <Typography variant="h6">
-                <b>Ever Since Time: {this.state.teamStart}</b>
+                <b>EST: {this.state.teamStart}</b>
               </Typography>
-              <Typography variant="subtitle1">
-                <em>
-                  Currently residing at the {this.state.venue} in{' '}
-                  {this.state.location}
-                </em>
+              <Typography variant="overline">
+                <em>{this.state.venue}</em>
               </Typography>
-              <Typography variant="caption">
+              <br />
+              <Typography variant="h5">
+                {/* <em>Season Statistics:</em>{' '} */}
                 <b>
-                  Check Out The Official Team Site{' '}
-                  <a href={this.state.website}> Here</a>
+                  {this.state.wins} - {this.state.losses} - {this.state.otl} ,{' '}
+                  {this.state.points} points
                 </b>
               </Typography>
               <br />
-              <br />
-              <Typography variant="h4">
-                {/* <em>Season Statistics:</em>{' '} */}
-                <em>
-                  {this.state.statsSingleSeason.wins} -{' '}
-                  {this.state.statsSingleSeason.losses} -{' '}
-                  {this.state.statsSingleSeason.ot} ,{' '}
-                  {this.state.statsSingleSeason.pts} points
-                </em>
-              </Typography>
-              <br />
               <Typography variant="inherit">
-                Goals / Game: <b>{this.state.teamStatsRanking.goalsPerGame}</b>{' '}
-                - Goals Against / Game:{' '}
-                <b>{this.state.teamStatsRanking.goalsAgainstPerGame}</b>
+                GF: <b>{this.state.goalsPerGame}</b>{' '}
+                <em>({this.state.goalsPerGameRank})</em> - GA:{' '}
+                <b>{this.state.goalsAgainstPerGame}</b> (
+                <em>{this.state.goalsAgainstPerGameRank})</em>
               </Typography>
               <br />
               <br />
-              <Typography isFavorited={isFavorited}>{Button}</Typography>
+              <Typography favorite={favorite}>{Button}</Typography>
             </center>
           </Paper>
           <Paper
@@ -237,23 +235,18 @@ class Team extends React.Component {
                     margin: '10px',
                     textAlign: 'left',
                   }}
-                  key={player.fullName}
+                  key={player.person.id}
                 >
                   <CardContent>
                     <Typography align="center" variant="h5">
                       {' '}
-                      {player.fullName}
+                      {player.person.fullName}
                     </Typography>
-                    <Typography variant="subtitle2">
-                      Position:
-                      {player ? player.position : ''}
-                    </Typography>
-                    <Typography>
-                      Jersey #:
-                      {player ? player.jerseyNumber : ''}
+                    <Typography variant="h5" align="center">
+                      #{player ? player.jerseyNumber : ''}
                     </Typography>
                     <Typography>
-                      <Link to={`/player/${player.id}`}>Stats</Link>
+                      <Link to={`/player/${player.person.id}`}>Stats</Link>
                     </Typography>
                   </CardContent>
                 </Card>

@@ -15,42 +15,55 @@ class Player extends React.Component {
     this.handleUnfavorite = this.handleUnfavorite.bind(this)
 
     this.state = {
-      isFavorited: false,
+      favorite: false,
       userId: '',
-      name: '',
-      firstName: '',
-      playerId: '',
-      age: '',
-      number: '',
-      shoots: '',
-      birthDate: '',
+      alternateCaptain: '',
+      assists: '',
       birthCity: '',
-      team: {
-        name: '',
-        id: '',
-      },
-      nationality: '',
-      position: {
-        name: '',
-        shortName: '',
-      },
-      link: '',
-      captain: false,
-      alternate: false,
+      birthDate: '',
+      birthCountry: '',
+      birthStateProvince: '',
+      blocks: '',
+      captain: '',
+      currentAge: '',
+      currentTeam: '',
+      fullName: '',
+      gameWinningGoals: '',
+      games: '',
+      goals: '',
       height: '',
+      hits: '',
+      id: '',
+      nationality: '',
+      overTimeGoals: '',
+      penaltyMinutes: '',
+      pim: '',
+      plusMinus: '',
+      points: '',
+      position: '',
+      primaryNumber: '',
+      powerPlayGoals: '',
+      powerPlayPoints: '',
+      rookie: '',
+      shootsCatches: '',
+      shortHandedGoals: '',
+      shortHandedPoints: '',
+      shotPct: '',
+      shots: '',
+      timeOnIcePerGame: '',
       weight: '',
-      season: '',
     }
   }
   async handleFavorite(e) {
+    e.preventDefault()
     this.setState({
-      isFavorited: true,
+      favorite: true,
     })
     await axios.post(
       `http://localhost:8080/user/player`,
       {
         userId: this.state.userId,
-        playerId: this.state.playerId,
+        playerId: this.state.id,
       },
       { headers: { authorization: window.localStorage.getItem('auth') } },
       console.log('favorited')
@@ -60,13 +73,13 @@ class Player extends React.Component {
   async handleUnfavorite(e) {
     e.preventDefault()
     this.setState({
-      isFavorited: false,
+      favorite: false,
     })
     await axios.patch(
       `http://localhost:8080/user/player/delete`,
       {
         userId: this.state.userId,
-        playerId: this.state.playerId,
+        playerId: this.state.id,
       },
       { headers: { authorization: window.localStorage.getItem('auth') } },
       console.log('unfavorited')
@@ -76,8 +89,8 @@ class Player extends React.Component {
   }
 
   async componentDidMount() {
-    const playersData = await axios.get(
-      `http://localhost:8080/team/player/${this.props.match.params.id}`,
+    const playerData = await axios.get(
+      `http://localhost:8080/user/player/${this.props.match.params.id}/stats`,
       {
         headers: { authorization: window.localStorage.getItem('auth') },
       }
@@ -86,42 +99,57 @@ class Player extends React.Component {
       headers: { authorization: window.localStorage.getItem('auth') },
     })
     const userId = userData.data.userId
-    console.log(userId)
 
-    const player = playersData.data.people[0]
+    const player = playerData.data
+
+    console.log(player)
 
     this.setState({
       userId: userId,
-      name: player.fullName,
-      firstName: player.firstName,
-      playerId: player.id,
-      age: player.currentAge,
-      shoots: player.shootsCatches,
-      number: player.primaryNumber,
-      birthDate: player.birthDate,
+      favorite: player.favorite,
+      alternateCaptain: player.alternateCaptain,
+      assists: player.assists,
       birthCity: player.birthCity,
-      team: {
-        name: player.currentTeam.name,
-        id: player.currentTeam.id,
-      },
-      nationality: player.nationality,
-      position: {
-        name: player.primaryPosition.name,
-        shortName: player.primaryPosition.abbreviation,
-      },
-      link: player.link,
+      birthDate: player.birthDate,
+      birthCountry: player.birthCountry,
+      birthStateProvince: player.birthStateProvince,
+      blocks: player.blocks,
       captain: player.captain,
-      alternate: player.alternateCaptain,
+      currentAge: player.currentAge,
+      currentTeam: player.currentTeam,
+      fullName: player.fullName,
+      gameWinningGoals: player.gameWinningGoals,
+      games: player.games,
+      goals: player.goals,
       height: player.height,
+      hits: player.hits,
+      id: player.id,
+      nationality: player.nationality,
+      overTimeGoals: player.overTimeGoals,
+      penaltyMinutes: player.penaltyMinutes,
+      pim: player.pim,
+      plusMinus: player.plusMinus,
+      points: player.points,
+      position: player.position,
+      primaryNumber: player.primaryNumber,
+      powerPlayGoals: player.powerPlayGoals,
+      powerPlayPoints: player.powerPlayPoints,
+      rookie: player.rookie,
+      shootsCatches: player.shootsCatches,
+      shortHandedGoals: player.shortHandedGoals,
+      shortHandedPoints: player.shortHandedPoints,
+      shotPct: player.shotPct,
+      shots: player.shots,
+      timeOnIcePerGame: player.timeOnIcePerGame,
       weight: player.weight,
     })
   }
 
   render() {
-    const isFavorited = this.state.isFavorited
+    const favorite = this.state.favorite
     let Button
 
-    if (isFavorited) {
+    if (favorite) {
       Button = <UnfavButton onClick={this.handleUnfavorite} />
     } else {
       Button = <FavButton onClick={this.handleFavorite} />
@@ -143,7 +171,7 @@ class Player extends React.Component {
           >
             <Typography variant="h3">
               <center>
-                <b>{this.state.name}'s Stats</b>
+                <b>{this.state.fullName}'s Stats</b>
               </center>
             </Typography>
           </Paper>
@@ -162,7 +190,7 @@ class Player extends React.Component {
                   textAlign: 'left',
                 }}
               >
-                <Typography align="center">
+                <Typography align="center" name="favoritePlayer">
                   {this.state.favorite && (
                     <Icon fontSize="large" color="primary">
                       star
@@ -171,7 +199,7 @@ class Player extends React.Component {
                 </Typography>
                 <Typography variant="h3">
                   <center>
-                    <b>#{this.state.number}</b>
+                    <b>#{this.state.primaryNumber}</b>
                   </center>
                 </Typography>
                 <Typography variant="h6">
@@ -184,15 +212,15 @@ class Player extends React.Component {
                 </Typography>
                 <PlayerCardContent
                   header="Position: "
-                  description={this.state.position.shortName}
+                  description={this.state.position}
                 ></PlayerCardContent>
                 <PlayerCardContent
                   header="Team: "
-                  description={this.state.team.name}
+                  description={this.state.currentTeam}
                 ></PlayerCardContent>
                 <PlayerCardContent
                   header="Age: "
-                  description={this.state.age}
+                  description={this.state.currentAge}
                 ></PlayerCardContent>
                 <PlayerCardContent
                   header="Height: "
@@ -204,7 +232,7 @@ class Player extends React.Component {
                 ></PlayerCardContent>
                 <PlayerCardContent
                   header="Shoots: "
-                  description={this.state.shoots}
+                  description={this.state.shootsCatches}
                 ></PlayerCardContent>
                 <PlayerCardContent
                   header="Nationality: "
@@ -214,11 +242,7 @@ class Player extends React.Component {
                   header="From: "
                   description={this.state.birthCity}
                 ></PlayerCardContent>
-                {/* <Typography align="center">
-                  <Button color="primary" onClick={this.favorite}>
-                    {Button}
-                  </Button>
-                </Typography> */}
+                <br />
                 <center>{Button}</center>
               </CardContent>
             </Card>
