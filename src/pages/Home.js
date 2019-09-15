@@ -9,129 +9,86 @@ class Home extends Component {
   constructor() {
     super()
     this.state = {
-      faceOffsRank: '',
-      goalsAgainstPerGame: '',
-      goalsAgainstPerGameRank: '',
-      goalsPerGame: '',
-      goalsPerGameRank: '',
-      losses: '',
-      lossesRank: '',
-      otl: '',
-      penaltyKillRank: '',
-      powerPlayRank: '',
-      points: '',
-      pointsRank: '',
-      shotsAllowedPerGame: '',
-      shotsPerGame: '',
-      venue: '',
-      wins: '',
-      winsRank: '',
-      favorite: false,
-      id: '',
-      userId: '',
-      division: '',
-      teamStart: '',
-      name: '',
-      location: '',
+      favTeams: [
+        {
+          division: '',
+          faceOffsRank: '',
+          favorite: false,
+          firstYearOfPlay: '',
+          goalsAgainstPerGameNums: '',
+          goalsAgainstPerGameRank: '',
+          goalsPerGameNums: '',
+          goalsPerGameRank: '',
+          id: '',
+          lossNums: '',
+          lossesRank: '',
+          name: '',
+          otNums: '',
+          penaltyKillRank: '',
+          powerPlayRank: '',
+          ptsNums: '',
+          ptsRank: '',
+          savePctgRank: '',
+          roster: [
+            {
+              id: '',
+              fullName: '',
+              link: '',
+            },
+          ],
+          shotsAllowedPerGameNums: '',
+          shotsPerGameNums: '',
+          shotsPerGameRank: '',
+          venue: '',
+          winNums: '',
+          winsRank: '',
+        },
+      ],
     }
   }
 
   async componentDidMount() {
-    const data = await Axios.get('http://localhost:8080/teams', {
-      headers: { authorization: window.localStorage.getItem('auth') },
-    })
     const userData = await Axios.get(`http://localhost:8080/user/id/teams`, {
       headers: {
         authorization: window.localStorage.getItem('auth'),
       },
     })
     const favTeams = userData.data
-    const teams = data.data.teams
-    const userTeams = []
-    // console.log(data.data)
-    teams.forEach(team => {
-      favTeams.forEach(favTeam => {
-        if (team.id === favTeam.teamId) {
-          userTeams.push(team)
-        }
-      })
-    })
-    this.setState({ teams: teams, favTeams: userTeams })
+    console.log(favTeams)
+    this.setState({ favTeams: favTeams })
   }
   render() {
     return (
       <Layout>
-        <div
-          style={{
-            marginTop: '100px',
-            marginBottom: '100px',
-          }}
-        />
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            width: '100vw',
-            height: 'auto',
-          }}
-        >
-          {this.state.teams &&
-            this.state.favTeams &&
+        <div>
+          {this.state.favTeams &&
             this.state.favTeams.map(team => {
-              // if (team.id === this.state.favTeams.id) {
-              //   userTeams
-              // }
               return (
                 <Card
-                  key={team.id}
                   style={{
                     width: '400px',
                     margin: '10px',
                     textAlign: 'left',
                   }}
+                  key={team.id}
                 >
-                  <CardContent>
-                    <Typography variant="h4">
-                      <center>
-                        <b>{team.name}</b>
-                      </center>
-                    </Typography>
+                  <CardContent align="center">
+                    <Typography variant="h4">{team.name}</Typography>
+                    <Typography variant="overline">{team.division}</Typography>
                     <br />
-                    <br />
-                    <Typography variant="overline">
-                      Conference:
-                      <center>
-                        <em>{team.conference ? team.conference.name : ''}</em>
-                      </center>
+                    <Typography variant="body1">
+                      <b>
+                        {team.winNums} - {team.lossNums} - {team.otNums}
+                        <br /> {team.ptsNums} points
+                      </b>{' '}
+                      <em>({team.ptsRank})</em>
                     </Typography>
-                    <Typography variant="overline">
-                      Division:
-                      <center>
-                        <em>{team.division ? team.division.name : ''}</em>
-                      </center>
-                    </Typography>
-                    <Typography variant="overline">
-                      Venue:{' '}
-                      <center>
-                        <em>{team.venue ? team.venue.name : ''}</em>
-                      </center>
-                    </Typography>
-                    <br />
-                    <Typography
-                      variant="overline"
-                      style={{
-                        textAlign: 'center',
-                        marginTop: '30px',
-                      }}
-                    >
-                      <a href={team.officialSiteUrl}>
-                        <center>
-                          <b>Website</b>
-                        </center>
-                      </a>
-                    </Typography>
-                    <Typography variant="overline">
-                      <Link to={`/team/${team.id}`}>View Team</Link>
+                    <Typography variant="caption">
+                      <br />
+                      Goals/Game: <b>+ {team.goalsPerGameNums}</b> (
+                      <em>{team.goalsPerGameRank}</em>){' '}
+                      <b>- {team.goalsAgainstPerGameNums}</b> (
+                      <em>{team.goalsAgainstPerGameRank}</em>)
                     </Typography>
                   </CardContent>
                 </Card>
