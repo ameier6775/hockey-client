@@ -102,8 +102,6 @@ class Player extends React.Component {
 
     const player = playerData.data
 
-    console.log(player)
-
     this.setState({
       userId: userId,
       favorite: player.favorite,
@@ -171,7 +169,7 @@ class Player extends React.Component {
           >
             <Typography variant="h3">
               <center>
-                <b>{this.state.fullName}'s Stats</b>
+                <b>{this.state.fullName}</b>
               </center>
             </Typography>
           </Paper>
@@ -221,6 +219,10 @@ class Player extends React.Component {
                 <PlayerCardContent
                   header="Age: "
                   description={this.state.currentAge}
+                ></PlayerCardContent>
+                <PlayerCardContent
+                  header="Birthdate: "
+                  description={this.state.birthDate}
                 ></PlayerCardContent>
                 <PlayerCardContent
                   header="Height: "

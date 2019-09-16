@@ -17,6 +17,9 @@ class Login extends React.Component {
 
   async handleLogin(e) {
     e.preventDefault()
+    if (e.target.length < 3) {
+      throw Error
+    }
     const response = await Axios.post(`http://localhost:8080/login`, {
       userName: this.state.userName,
       password: this.state.password,

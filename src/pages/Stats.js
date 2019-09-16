@@ -1,95 +1,167 @@
 import React from 'react'
 import '../index.css'
 import Layout from '../components/Layout'
-import { Link } from 'react-router-dom'
+import axios from 'axios'
 import { Typography, Card, CardContent } from '@material-ui/core'
 import Auth from '../components/Auth'
-import PlayerCardContent from '../components/PlayerCardContent'
+import PlayerStat from '../components/PlayerStat'
 
 class Stats extends React.Component {
   constructor() {
     super()
-
     this.state = {
       favPlayers: [
         {
+          favorite: false,
           userId: '',
-          fullName: '',
-          firstName: '',
-          id: '',
-          currentAge: '',
-          primaryNumber: '',
-          shootsCatches: '',
-          birthDate: '',
+          alternateCaptain: '',
+          assists: '',
           birthCity: '',
-          currentTeam: {
-            name: '',
-            id: '',
-          },
-          nationality: '',
-          primaryPosition: {
-            name: '',
-            abbreviation: '',
-          },
-          link: '',
-          captain: false,
-          alternateCaptain: false,
+          birthDate: '',
+          birthCountry: '',
+          birthStateProvince: '',
+          blocks: '',
+          captain: '',
+          currentAge: '',
+          currentTeam: '',
+          fullName: '',
+          gameWinningGoals: '',
+          games: '',
+          goals: '',
           height: '',
+          hits: '',
+          id: '',
+          nationality: '',
+          overTimeGoals: '',
+          penaltyMinutes: '',
+          pim: '',
+          plusMinus: '',
+          points: '',
+          position: '',
+          primaryNumber: '',
+          powerPlayGoals: '',
+          powerPlayPoints: '',
+          rookie: '',
+          shootsCatches: '',
+          shortHandedGoals: '',
+          shortHandedPoints: '',
+          shotPct: '',
+          shots: '',
+          timeOnIcePerGame: '',
           weight: '',
         },
       ],
     }
   }
 
+  async componentDidMount() {
+    const favPlayers = await axios.get(
+      `http://localhost:8080/user/id/players`,
+      {
+        headers: { authorization: window.localStorage.getItem('auth') },
+      }
+    )
+    this.setState({
+      favPlayers: favPlayers.data,
+    })
+    console.log(favPlayers.data)
+  }
+
   render() {
     return (
       <Layout>
-        <div
-          style={{
-            marginTop: '100px',
-            marginBottom: '100px',
-          }}
-        />
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            width: '100vw',
-            height: 'auto',
-          }}
-        >
-          {this.state.favPlayers &&
-            this.state.favPlayers.map(player => {
-              return (
-                <Card
-                  key={player.id}
-                  style={{
-                    width: '400px',
-                    margin: '10px',
-                    textAlign: 'left',
-                    border: '4px orange solid',
-                    padding: '10px',
-                  }}
-                >
-                  <CardContent>
-                    <Typography variant="h4">
-                      <em>
-                        <center>{player.fullName}</center>
-                      </em>
-                    </Typography>
-                    <br />
-                    <PlayerCardContent
-                      header="Current Team: "
-                      description={player.currentTeam.name}
-                    ></PlayerCardContent>
-                    <Link to={`/player/${player.id}`}>General Info</Link>
-                  </CardContent>
-                </Card>
-              )
-            })}
-        </div>
+        {this.state.favPlayers &&
+          this.state.favPlayers.map(player => {
+            return (
+              <Card
+                key={player.id}
+                style={{
+                  margin: '10px',
+                  display: 'flex',
+                  marginTop: '10px',
+                  marginBottom: '10px',
+                  flexWrap: 'wrap',
+                  width: '100vw',
+                  height: 'auto',
+                }}
+              >
+                <CardContent align="center">
+                  <Typography align="center" variant="h5">
+                    {player.fullName}
+                  </Typography>
+                  <PlayerStat
+                    statName="Goals: "
+                    stat={player.goals}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="Assists: "
+                    stat={player.assists}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="Points: "
+                    stat={player.points}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="+ / - : "
+                    stat={player.goals}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="Shots: "
+                    stat={player.shots}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="Shooting: "
+                    stat={player.shotPct + '%'}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="TOI / Game: "
+                    stat={player.timeOnIcePerGame}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat statName="Hits: " stat={player.hits}></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="Blocks: "
+                    stat={player.blocks}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="Game Winning Goals: "
+                    stat={player.gameWinningGoals}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="PP Points: "
+                    stat={player.powerPlayPoints}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="PP Goals: "
+                    stat={player.powerPlayGoals}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="SH Points: "
+                    stat={player.shortHandedPoints}
+                  ></PlayerStat>
+                  <br />
+                  <PlayerStat
+                    statName="SH Goals: "
+                    stat={player.shortHandedGoals}
+                  ></PlayerStat>
+                </CardContent>
+              </Card>
+            )
+          })}
       </Layout>
     )
   }
 }
+
 export default Auth(Stats)

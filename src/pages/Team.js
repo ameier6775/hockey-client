@@ -31,7 +31,7 @@ class Team extends React.Component {
       venue: '',
       wins: '',
       winsRank: '',
-      favorite: false,
+      favorite: '',
       id: '',
       userId: '',
       division: '',
@@ -152,8 +152,6 @@ class Team extends React.Component {
       teamStart: team.firstYearOfPlay,
       name: team.name,
       roster: team.roster,
-      // savePctgRank: '',
-      // shotsPerGameRank: '',
     })
   }
 
@@ -207,14 +205,6 @@ class Team extends React.Component {
                   {this.state.points} points
                 </b>
               </Typography>
-              <br />
-              <Typography variant="inherit">
-                GF: <b>{this.state.goalsPerGame}</b>{' '}
-                <em>({this.state.goalsPerGameRank})</em> - GA:{' '}
-                <b>{this.state.goalsAgainstPerGame}</b> (
-                <em>{this.state.goalsAgainstPerGameRank})</em>
-              </Typography>
-              <br />
               <br />
               <Typography favorite={favorite}>{Button}</Typography>
             </center>

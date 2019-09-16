@@ -24,8 +24,10 @@ class Home extends Component {
           lossesRank: '',
           name: '',
           otNums: '',
-          penaltyKillRank: '',
+          powerPlayPct: '',
           powerPlayRank: '',
+          penaltyKillPct: '',
+          penaltyKillRank: '',
           ptsNums: '',
           ptsRank: '',
           savePctgRank: '',
@@ -73,22 +75,43 @@ class Home extends Component {
                   key={team.id}
                 >
                   <CardContent align="center">
-                    <Typography variant="h4">{team.name}</Typography>
+                    <Typography variant="h4">
+                      <b>{team.name.toUpperCase()}</b>
+                    </Typography>
                     <Typography variant="overline">{team.division}</Typography>
                     <br />
-                    <Typography variant="body1">
+                    <Typography variant="body2">
                       <b>
                         {team.winNums} - {team.lossNums} - {team.otNums}
-                        <br /> {team.ptsNums} points
+                        <br /> {team.ptsNums} POINTS
                       </b>{' '}
                       <em>({team.ptsRank})</em>
                     </Typography>
-                    <Typography variant="caption">
-                      <br />
+                    <br />
+                    <Typography variant="overline">
                       Goals/Game: <b>+ {team.goalsPerGameNums}</b> (
                       <em>{team.goalsPerGameRank}</em>){' '}
                       <b>- {team.goalsAgainstPerGameNums}</b> (
                       <em>{team.goalsAgainstPerGameRank}</em>)
+                    </Typography>
+                    <br />
+                    <Typography variant="overline">
+                      Shots/Game:{' '}
+                      <b>
+                        + {team.shotsPerGameNums} -{' '}
+                        {team.shotsAllowedPerGameNums}
+                      </b>{' '}
+                    </Typography>
+                    <br />
+                    <Typography variant="overline">
+                      PP: <b>{team.powerPlayPct + '%'}</b>{' '}
+                      <em>({team.powerPlayRank})</em> - PK:{' '}
+                      <b>{team.penaltyKillPct + '%'}</b>{' '}
+                      <em>({team.penaltyKillRank})</em>
+                    </Typography>
+                    <br />
+                    <Typography variant="overline">
+                      <Link to={`/team/${team.id}`}>View Team</Link>
                     </Typography>
                   </CardContent>
                 </Card>
