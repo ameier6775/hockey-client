@@ -139,7 +139,11 @@ class Home extends Component {
                       return (
                         <TableRow key={record.team.id} variant="body2">
                           <TableCell>{record.divisionRank}</TableCell>
-                          <TableCell>{record.team.name}</TableCell>
+                          <TableCell>
+                            <a href={`/team/${record.team.id}`}>
+                              {record.team.name}
+                            </a>
+                          </TableCell>
                           <TableCell>{record.points}</TableCell>
                           <TableCell>{record.gamesPlayed}</TableCell>
                           <TableCell>

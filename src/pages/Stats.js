@@ -8,7 +8,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Link,
 } from '@material-ui/core'
 import Auth from '../components/Auth'
 
@@ -182,7 +181,7 @@ class Stats extends React.Component {
                       {team.goalsPerGameNums} ({team.goalsAgainstPerGameRank})
                     </TableCell>
                     <TableCell>
-                      {team.goalsAgainstPerGameNums} (
+                      {team.goalsAgainstPerGameNums}(
                       {team.goalsAgainstPerGameRank})
                     </TableCell>
                     <TableCell>{team.shotsPerGameNums}</TableCell>
