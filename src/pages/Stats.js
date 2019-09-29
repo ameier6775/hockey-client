@@ -131,76 +131,80 @@ class Stats extends React.Component {
             <TableHead component="h2">
               <b>Favorite Teams</b>
             </TableHead>
-            <TableRow>
-              <TableCell>
-                <em>Team</em>
-              </TableCell>
-              <TableCell>
-                <em>Division</em>
-              </TableCell>
-              <TableCell>
-                <em>Record</em>
-              </TableCell>
-              <TableCell>
-                <em>Points</em>
-              </TableCell>
-              <TableCell>
-                <em>Goals/Game</em>
-              </TableCell>
-              <TableCell>
-                <em>Goals Against/Game</em>
-              </TableCell>
-              <TableCell>
-                <em>Shots/Game</em>
-              </TableCell>
-              <TableCell>
-                <em>Shots Against/Game</em>
-              </TableCell>
-              <TableCell>
-                <em>Power Play</em>
-              </TableCell>
-              <TableCell>
-                <em>Penalty Kill</em>
-              </TableCell>
-            </TableRow>
-            {this.state.favTeams &&
-              this.state.favTeams.map(team => {
-                return (
-                  <TableRow>
-                    <TableCell>
-                      <a href={`/team/${team.id}`}>{team.name}</a>
-                    </TableCell>
-                    <TableCell>{team.division}</TableCell>
-                    <TableCell>
-                      {team.winNums}-{team.lossNums}-{team.otNums}
-                    </TableCell>
-                    <TableCell>
-                      {team.ptsNums} ({team.ptsRank})
-                    </TableCell>
-                    <TableCell>
-                      {team.goalsPerGameNums} ({team.goalsAgainstPerGameRank})
-                    </TableCell>
-                    <TableCell>
-                      {team.goalsAgainstPerGameNums}(
-                      {team.goalsAgainstPerGameRank})
-                    </TableCell>
-                    <TableCell>{team.shotsPerGameNums}</TableCell>
-                    <TableCell>{team.shotsAllowedPerGameNums}</TableCell>
-                    <TableCell>
-                      {team.powerPlayPct} ({team.powerPlayRank})
-                    </TableCell>
-                    <TableCell>
-                      {team.penaltyKillPct} ({team.penaltyKillRank})
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
+            <TableBody align="center">
+              <TableRow>
+                <TableCell>
+                  <em>Name</em>
+                </TableCell>
+                <TableCell>
+                  <em>Division</em>
+                </TableCell>
+                <TableCell>
+                  <em>Record</em>
+                </TableCell>
+                <TableCell>
+                  <em>Points</em>
+                </TableCell>
+                <TableCell>
+                  <em>Goals/Game</em>
+                </TableCell>
+                <TableCell>
+                  <em>Goals Against/Game</em>
+                </TableCell>
+                <TableCell>
+                  <em>Shots/Game</em>
+                </TableCell>
+                <TableCell>
+                  <em>Shots Against/Game</em>
+                </TableCell>
+                <TableCell>
+                  <em>Power Play</em>
+                </TableCell>
+                <TableCell>
+                  <em>Penalty Kill</em>
+                </TableCell>
+              </TableRow>
+              {this.state.favTeams &&
+                this.state.favTeams.map(team => {
+                  return (
+                    <TableRow>
+                      <TableCell>
+                        <a href={`/team/${team.id}`}>{team.name}</a>
+                      </TableCell>
+                      <TableCell>{team.division}</TableCell>
+                      <TableCell>
+                        {team.winNums}-{team.lossNums}-{team.otNums}
+                      </TableCell>
+                      <TableCell>
+                        {team.ptsNums} ({team.ptsRank})
+                      </TableCell>
+                      <TableCell>
+                        {team.goalsPerGameNums} ({team.goalsAgainstPerGameRank})
+                      </TableCell>
+                      <TableCell>
+                        {team.goalsAgainstPerGameNums} (
+                        {team.goalsAgainstPerGameRank})
+                      </TableCell>
+                      <TableCell>{team.shotsPerGameNums}</TableCell>
+                      <TableCell>{team.shotsAllowedPerGameNums}</TableCell>
+                      <TableCell>
+                        {team.powerPlayPct} ({team.powerPlayRank})
+                      </TableCell>
+                      <TableCell>
+                        {team.penaltyKillPct} ({team.penaltyKillRank})
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+            </TableBody>
           </Table>
           <br />
           <Table
             key={this.state.favPlayers}
             style={{
+              width: '100%',
               marginTop: '10px',
+              overflowX: 'auto',
             }}
           >
             <TableHead component="h2">Favorite Players</TableHead>
