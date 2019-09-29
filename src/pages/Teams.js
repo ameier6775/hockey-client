@@ -32,9 +32,8 @@ class Teams extends Component {
       <Layout>
         <div
           style={{
-            marginTop: '100px',
+            marginTop: '10px',
             marginBottom: '100px',
-
             display: 'flex',
             flexWrap: 'wrap',
             width: '100vw',

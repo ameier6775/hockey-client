@@ -21,6 +21,7 @@ class User extends React.Component {
     this.state = {
       userName: '',
       password: '',
+      verifyPassword: '',
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -29,12 +30,22 @@ class User extends React.Component {
 
   async handleSubmit(e) {
     e.preventDefault()
-    await Axios.post(`http://localhost:8080/signup`, {
-      userName: this.state.userName,
-      password: this.state.password,
-    })
-    let path = '/login'
-    this.props.history.push(path)
+    if (this.state.userName.length <= 3 && this.state.password.length <= 3) {
+      window.alert('Username & password must be at least three characters long')
+    } else if (this.state.userName.length <= 3) {
+      window.alert('Username must be at least three characters long')
+    } else if (this.state.password.length <= 3) {
+      window.alert('Password must be at least three characters long')
+    } else if (this.state.password !== this.state.verifyPassword) {
+      window.alert('Passwords do not match')
+    } else {
+      await Axios.post(`http://localhost:8080/signup`, {
+        userName: this.state.userName,
+        password: this.state.password,
+      })
+      let path = '/login'
+      this.props.history.push(path)
+    }
   }
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value })

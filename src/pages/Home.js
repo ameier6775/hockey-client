@@ -1,5 +1,14 @@
 import React, { Component } from 'react'
-import { Typography, Card, CardContent } from '@material-ui/core'
+import {
+  Typography,
+  Card,
+  CardContent,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@material-ui/core'
 import Axios from 'axios'
 import Layout from '../components/Layout'
 import { Link } from 'react-router-dom'
@@ -46,6 +55,26 @@ class Home extends Component {
           winsRank: '',
         },
       ],
+      divisons: [
+        {
+          division: {
+            name: '',
+            shortName: '',
+          },
+          teamRecords: {
+            divisionRank: '',
+            conferenceRank: '',
+            leagueRank: '',
+            leagueL10Rank: '',
+            leagueHomeRank: '',
+            leagueRoadRank: '',
+            streak: {
+              streakCode: '',
+            },
+            wildCardRank: '',
+          },
+        },
+      ],
     }
   }
 
@@ -56,65 +85,72 @@ class Home extends Component {
       },
     })
     const favTeams = userData.data
-    console.log(favTeams)
     this.setState({ favTeams: favTeams })
+
+    const standingsData = await Axios.get(`http://localhost:8080/standings`, {
+      headers: {
+        authorization: window.localStorage.getItem('auth'),
+      },
+    })
+    this.setState({ divisions: standingsData.data.records })
+    console.log(this.state.divisions)
   }
+
   render() {
     return (
       <Layout>
         <div>
-          {this.state.favTeams &&
-            this.state.favTeams.map(team => {
+          {this.state.divisions &&
+            this.state.divisions.map(division => {
               return (
-                <Card
+                <Table
                   style={{
-                    width: '400px',
-                    margin: '10px',
-                    textAlign: 'left',
+                    width: '100%',
+                    marginTop: '10px',
+                    overflowX: 'auto',
                   }}
-                  key={team.id}
+                  key={division.division.id}
                 >
-                  <CardContent align="center">
-                    <Typography variant="h4">
-                      <b>{team.name.toUpperCase()}</b>
-                    </Typography>
-                    <Typography variant="overline">{team.division}</Typography>
-                    <br />
-                    <Typography variant="body2">
-                      <b>
-                        {team.winNums} - {team.lossNums} - {team.otNums}
-                        <br /> {team.ptsNums} POINTS
-                      </b>{' '}
-                      <em>({team.ptsRank})</em>
-                    </Typography>
-                    <br />
-                    <Typography variant="overline">
-                      Goals/Game: <b>+ {team.goalsPerGameNums}</b> (
-                      <em>{team.goalsPerGameRank}</em>){' '}
-                      <b>- {team.goalsAgainstPerGameNums}</b> (
-                      <em>{team.goalsAgainstPerGameRank}</em>)
-                    </Typography>
-                    <br />
-                    <Typography variant="overline">
-                      Shots/Game:{' '}
-                      <b>
-                        + {team.shotsPerGameNums} -{' '}
-                        {team.shotsAllowedPerGameNums}
-                      </b>{' '}
-                    </Typography>
-                    <br />
-                    <Typography variant="overline">
-                      PP: <b>{team.powerPlayPct + '%'}</b>{' '}
-                      <em>({team.powerPlayRank})</em> - PK:{' '}
-                      <b>{team.penaltyKillPct + '%'}</b>{' '}
-                      <em>({team.penaltyKillRank})</em>
-                    </Typography>
-                    <br />
-                    <Typography variant="overline">
-                      <Link to={`/team/${team.id}`}>View Team</Link>
-                    </Typography>
-                  </CardContent>
-                </Card>
+                  <TableHead align="left" component="h2">
+                    <b>{division.division.name}</b>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>
+                        <em>#</em>
+                      </TableCell>
+                      <TableCell>
+                        <em>Team</em>
+                      </TableCell>
+                      <TableCell>
+                        <em>Points</em>
+                      </TableCell>
+                      <TableCell>
+                        <em>Games Played</em>
+                      </TableCell>
+                      <TableCell>
+                        <em>Goal Differential</em>
+                      </TableCell>
+                      <TableCell>
+                        <em>Streak</em>
+                      </TableCell>
+                    </TableRow>
+                    {division.teamRecords.map(record => {
+                      return (
+                        <TableRow key={record.team.id} variant="body2">
+                          <TableCell>{record.divisionRank}</TableCell>
+                          <TableCell>{record.team.name}</TableCell>
+                          <TableCell>{record.points}</TableCell>
+                          <TableCell>{record.gamesPlayed}</TableCell>
+                          <TableCell>
+                            {record.goalsScored - record.goalsAgainst}
+                          </TableCell>
+                          <TableCell>{record.streak.streakCode}</TableCell>
+                        </TableRow>
+                      )
+                    })}
+                  </TableBody>
+                </Table>
               )
             })}
         </div>
