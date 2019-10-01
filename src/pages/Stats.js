@@ -16,7 +16,7 @@ class Stats extends React.Component {
   constructor() {
     super()
     this.handleSortTeam = this.handleSortTeam.bind(this)
-    // this.handleSortPlayer = this.handleSortPlayer.bind(this)
+    this.handleSortPlayer = this.handleSortPlayer.bind(this)
     this.state = {
       currentSortedBy: '',
       reversed: false,
@@ -54,42 +54,25 @@ class Stats extends React.Component {
       favPlayers: [
         {
           favorite: false,
-          userId: '',
-          alternateCaptain: '',
           assists: '',
-          birthCity: '',
-          birthDate: '',
-          birthCountry: '',
-          birthStateProvince: '',
           blocks: '',
-          captain: '',
           currentAge: '',
-          currentTeam: '',
           fullName: '',
           gameWinningGoals: '',
           games: '',
           goals: '',
-          height: '',
           hits: '',
-          id: '',
-          nationality: '',
           overTimeGoals: '',
-          penaltyMinutes: '',
-          pim: '',
           plusMinus: '',
           points: '',
           position: '',
-          primaryNumber: '',
           powerPlayGoals: '',
           powerPlayPoints: '',
           rookie: '',
           shootsCatches: '',
-          shortHandedGoals: '',
-          shortHandedPoints: '',
           shotPct: '',
           shots: '',
           timeOnIcePerGame: '',
-          weight: '',
         },
       ],
     }
@@ -100,6 +83,13 @@ class Stats extends React.Component {
     console.log(e.target)
     this.setState({
       favTeams: sortBy(this.state.favTeams, [e.target]),
+    })
+  }
+  handleSortPlayer(e) {
+    e.preventDefault()
+    console.log(e.target)
+    this.setState({
+      favPlayers: sortBy(this.state.favPlayers, [e.target]),
     })
   }
 
@@ -125,6 +115,25 @@ class Stats extends React.Component {
       case 'shotsAllowedPerGameNums':
       case 'shotsPerGameNums':
       case 'winNums':
+      case 'assists':
+      case 'blocks':
+      case 'currentAge':
+      case 'fullName:':
+      case 'gameWinningGoals':
+      case 'games':
+      case 'goals':
+      case 'hits':
+      case 'overTimeGoals':
+      case 'plusMinus':
+      case 'points':
+      case 'position':
+      case 'powerPlayGoals':
+      case 'powerPlayPoints':
+      case 'rookie':
+      case 'shootsCatches':
+      case 'shotPct':
+      case 'shots':
+      case 'timeOnIcePerGame':
       default:
     }
 
@@ -145,6 +154,28 @@ class Stats extends React.Component {
     } else {
       this.setState({
         favTeams: sortBy(this.state.favTeams, field),
+        currentSortedBy: field,
+        reversed: false,
+      })
+    }
+
+    if (this.state.currentSortedBy && this.state.currentSortedBy === field) {
+      if (!this.state.reversed) {
+        this.setState({
+          favPlayers: sortBy(this.state.favPlayers, field).reverse(),
+          currentSortedBy: field,
+          reversed: true,
+        })
+      } else {
+        this.setState({
+          favPlayers: sortBy(this.state.favPlayers, field),
+          currentSortedBy: field,
+          reversed: false,
+        })
+      }
+    } else {
+      this.setState({
+        favPlayers: sortBy(this.state.favPlayers, field),
         currentSortedBy: field,
         reversed: false,
       })
@@ -185,10 +216,7 @@ class Stats extends React.Component {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell
-                    onClick={e => this.handleSort('name')}
-                    // onClick={sortBy(this.state.favTeams, ['name'])}
-                  >
+                  <TableCell onClick={e => this.handleSort('name')}>
                     <em>Name</em>
                   </TableCell>
                   <TableCell onClick={e => this.handleSort('division')}>
@@ -271,43 +299,43 @@ class Stats extends React.Component {
           >
             <TableHead>
               <TableRow>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('fullName')}>
                   <em>Name</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('goals')}>
                   <em>Goals</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('assists')}>
                   <em>Assists</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('points')}>
                   <em>Points</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('plusMinus')}>
                   <em>+ / -</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('shootsCatches')}>
                   <em>Shoots</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('shotPct')}>
                   <em>Shooting %</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('timeOnIcePerGame')}>
                   <em>TOI</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('hits')}>
                   <em>Hits</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('blocks')}>
                   <em>Blocks</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('gameWinningGoals')}>
                   <em>GWG</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('powerPlayPoints')}>
                   <em>PPP</em>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={e => this.handleSort('powerPlayGoals')}>
                   <em>PPG</em>
                 </TableCell>
               </TableRow>
