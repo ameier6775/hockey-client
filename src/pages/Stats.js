@@ -93,7 +93,7 @@ class Stats extends React.Component {
     })
   }
 
-  handleSort(field) {
+  sortTeam(field) {
     switch (field) {
       case 'division':
       case 'favorite':
@@ -115,25 +115,6 @@ class Stats extends React.Component {
       case 'shotsAllowedPerGameNums':
       case 'shotsPerGameNums':
       case 'winNums':
-      case 'assists':
-      case 'blocks':
-      case 'currentAge':
-      case 'fullName:':
-      case 'gameWinningGoals':
-      case 'games':
-      case 'goals':
-      case 'hits':
-      case 'overTimeGoals':
-      case 'plusMinus':
-      case 'points':
-      case 'position':
-      case 'powerPlayGoals':
-      case 'powerPlayPoints':
-      case 'rookie':
-      case 'shootsCatches':
-      case 'shotPct':
-      case 'shots':
-      case 'timeOnIcePerGame':
       default:
     }
 
@@ -157,6 +138,31 @@ class Stats extends React.Component {
         currentSortedBy: field,
         reversed: false,
       })
+    }
+  }
+
+  sortPlayer(field) {
+    switch (field) {
+      case 'assists':
+      case 'blocks':
+      case 'currentAge':
+      case 'fullName:':
+      case 'gameWinningGoals':
+      case 'games':
+      case 'goals':
+      case 'hits':
+      case 'overTimeGoals':
+      case 'plusMinus':
+      case 'points':
+      case 'position':
+      case 'powerPlayGoals':
+      case 'powerPlayPoints':
+      case 'rookie':
+      case 'shootsCatches':
+      case 'shotPct':
+      case 'shots':
+      case 'timeOnIcePerGame':
+      default:
     }
 
     if (this.state.currentSortedBy && this.state.currentSortedBy === field) {
@@ -216,38 +222,38 @@ class Stats extends React.Component {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell onClick={e => this.handleSort('name')}>
+                  <TableCell onClick={e => this.sortTeam('name')}>
                     <em>Name</em>
                   </TableCell>
-                  <TableCell onClick={e => this.handleSort('division')}>
+                  <TableCell onClick={e => this.sortTeam('division')}>
                     <em>Division</em>
                   </TableCell>
-                  <TableCell onClick={e => this.handleSort('winNums')}>
+                  <TableCell onClick={e => this.sortTeam('winNums')}>
                     <em>Record</em>
                   </TableCell>
-                  <TableCell onClick={e => this.handleSort('ptsNums')}>
+                  <TableCell onClick={e => this.sortTeam('ptsNums')}>
                     <em>Points</em>
                   </TableCell>
-                  <TableCell onClick={e => this.handleSort('goalsPerGameNums')}>
+                  <TableCell onClick={e => this.sortTeam('goalsPerGameNums')}>
                     <em>Goals/Game</em>
                   </TableCell>
                   <TableCell
-                    onClick={e => this.handleSort('goalsAgainstPerGameNums')}
+                    onClick={e => this.sortTeam('goalsAgainstPerGameNums')}
                   >
                     <em>Goals Against/Game</em>
                   </TableCell>
-                  <TableCell onClick={e => this.handleSort('shotsPerGameNums')}>
+                  <TableCell onClick={e => this.sortTeam('shotsPerGameNums')}>
                     <em>Shots/Game</em>
                   </TableCell>
                   <TableCell
-                    onClick={e => this.handleSort('shotsAllowedPerGameNums')}
+                    onClick={e => this.sortTeam('shotsAllowedPerGameNums')}
                   >
                     <em>Shots Against/Game</em>
                   </TableCell>
-                  <TableCell onClick={e => this.handleSort('powerPlayPct')}>
+                  <TableCell onClick={e => this.sortTeam('powerPlayPct')}>
                     <em>Power Play</em>
                   </TableCell>
-                  <TableCell onClick={e => this.handleSort('penaltyKillPct')}>
+                  <TableCell onClick={e => this.sortTeam('penaltyKillPct')}>
                     <em>Penalty Kill</em>
                   </TableCell>
                 </TableRow>
@@ -299,43 +305,43 @@ class Stats extends React.Component {
           >
             <TableHead>
               <TableRow>
-                <TableCell onClick={e => this.handleSort('fullName')}>
+                <TableCell onClick={e => this.sortPlayer('fullName')}>
                   <em>Name</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('goals')}>
+                <TableCell onClick={e => this.sortPlayer('goals')}>
                   <em>Goals</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('assists')}>
+                <TableCell onClick={e => this.sortPlayer('assists')}>
                   <em>Assists</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('points')}>
+                <TableCell onClick={e => this.sortPlayer('points')}>
                   <em>Points</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('plusMinus')}>
+                <TableCell onClick={e => this.sortPlayer('plusMinus')}>
                   <em>+ / -</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('shootsCatches')}>
+                <TableCell onClick={e => this.sortPlayer('shootsCatches')}>
                   <em>Shoots</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('shotPct')}>
+                <TableCell onClick={e => this.sortPlayer('shotPct')}>
                   <em>Shooting %</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('timeOnIcePerGame')}>
+                <TableCell onClick={e => this.sortPlayer('timeOnIcePerGame')}>
                   <em>TOI</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('hits')}>
+                <TableCell onClick={e => this.sortPlayer('hits')}>
                   <em>Hits</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('blocks')}>
+                <TableCell onClick={e => this.sortPlayer('blocks')}>
                   <em>Blocks</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('gameWinningGoals')}>
+                <TableCell onClick={e => this.sortPlayer('gameWinningGoals')}>
                   <em>GWG</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('powerPlayPoints')}>
+                <TableCell onClick={e => this.sortPlayer('powerPlayPoints')}>
                   <em>PPP</em>
                 </TableCell>
-                <TableCell onClick={e => this.handleSort('powerPlayGoals')}>
+                <TableCell onClick={e => this.sortPlayer('powerPlayGoals')}>
                   <em>PPG</em>
                 </TableCell>
               </TableRow>
