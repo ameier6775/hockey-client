@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import {
-  Typography,
-  Card,
-  CardContent,
   Table,
   TableBody,
   TableCell,
@@ -11,7 +8,6 @@ import {
 } from '@material-ui/core'
 import Axios from 'axios'
 import Layout from '../components/Layout'
-import { Link } from 'react-router-dom'
 import Auth from '../components/Auth'
 
 class Home extends Component {
@@ -149,7 +145,9 @@ class Home extends Component {
                           <TableCell>
                             {record.goalsScored - record.goalsAgainst}
                           </TableCell>
-                          <TableCell>{record.streak.streakCode}</TableCell>
+                          <TableCell>
+                            {/* {record.streak.streakCode} */}
+                          </TableCell>
                         </TableRow>
                       )
                     })}

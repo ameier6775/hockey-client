@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core'
 import Auth from '../components/Auth'
 import sortBy from 'lodash/sortBy'
+import { VictoryPie } from 'victory'
 
 class Stats extends React.Component {
   constructor() {
@@ -320,9 +321,9 @@ class Stats extends React.Component {
                 <TableCell onClick={e => this.sortPlayer('plusMinus')}>
                   <em>+ / -</em>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('shootsCatches')}>
+                {/* <TableCell onClick={e => this.sortPlayer('shootsCatches')}>
                   <em>Shoots</em>
-                </TableCell>
+                </TableCell> */}
                 <TableCell onClick={e => this.sortPlayer('shotPct')}>
                   <em>Shooting %</em>
                 </TableCell>
@@ -335,9 +336,9 @@ class Stats extends React.Component {
                 <TableCell onClick={e => this.sortPlayer('blocks')}>
                   <em>Blocks</em>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('gameWinningGoals')}>
+                {/* <TableCell onClick={e => this.sortPlayer('gameWinningGoals')}>
                   <em>GWG</em>
-                </TableCell>
+                </TableCell> */}
                 <TableCell onClick={e => this.sortPlayer('powerPlayPoints')}>
                   <em>PPP</em>
                 </TableCell>
@@ -350,7 +351,7 @@ class Stats extends React.Component {
               {this.state.favPlayers &&
                 this.state.favPlayers.map(player => {
                   return (
-                    <TableRow key={player.id}>
+                    <TableRow style={{}} key={player.id}>
                       <TableCell>
                         <a href={`/player/${player.id}`}>{player.fullName}</a>
                       </TableCell>
@@ -358,14 +359,29 @@ class Stats extends React.Component {
                       <TableCell>{player.assists}</TableCell>
                       <TableCell>{player.points}</TableCell>
                       <TableCell>{player.plusMinus}</TableCell>
-                      <TableCell>{player.shootsCatches}</TableCell>
+                      {/* <TableCell>{player.shootsCatches}</TableCell> */}
                       <TableCell>{player.shotPct}%</TableCell>
                       <TableCell>{player.timeOnIcePerGame}</TableCell>
                       <TableCell>{player.hits}</TableCell>
                       <TableCell>{player.blocks}</TableCell>
-                      <TableCell>{player.gameWinningGoals}</TableCell>
+                      {/* <TableCell>{player.gameWinningGoals}</TableCell> */}
                       <TableCell>{player.powerPlayPoints}</TableCell>
                       <TableCell>{player.powerPlayGoals}</TableCell>
+                      <VictoryPie
+                        colorScale={[
+                          'tomato',
+                          'orange',
+                          'gold',
+                          'cyan',
+                          'navy',
+                        ]}
+                        data={[
+                          { x: 1, y: player.goals, label: 'Goals' },
+                          { x: 2, y: player.assists, label: 'Assists' },
+                          { x: 3, y: player.blocks, label: 'Blocks' },
+                          { x: 4, y: player.hits, label: 'Hits' },
+                        ]}
+                      />{' '}
                     </TableRow>
                   )
                 })}

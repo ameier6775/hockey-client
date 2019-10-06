@@ -58,21 +58,6 @@ class Team extends React.Component {
           },
         },
       ],
-      statsSingleSeason: [
-        {
-          gamesPlayed: '',
-          wins: '',
-          losses: '',
-          ot: '',
-          pts: '',
-        },
-      ],
-      teamStatsRanking: [
-        {
-          goalsFor: '',
-          goalsAgainst: '',
-        },
-      ],
     }
   }
 
@@ -90,8 +75,6 @@ class Team extends React.Component {
       { headers: { authorization: window.localStorage.getItem('auth') } },
       console.log('favorited')
     )
-    // let path = '/teams'
-    // this.props.history.push(path)
   }
   async handleUnfavorite(e) {
     e.preventDefault()
@@ -107,8 +90,6 @@ class Team extends React.Component {
       { headers: { authorization: window.localStorage.getItem('auth') } },
       console.log('unfavorited')
     )
-    // let path = '/teams'
-    // this.props.history.push(path)
   }
 
   async componentDidMount() {
@@ -127,6 +108,7 @@ class Team extends React.Component {
       }
     )
     const team = data.data
+    console.log(team)
 
     this.setState({
       favorite: team.favorite,
@@ -164,6 +146,9 @@ class Team extends React.Component {
     } else {
       Button = <FavButton onClick={this.handleFavorite} />
     }
+
+    const data = [{ gf: 1, ga: 13000 }, { gf: 2, ga: 19000 }]
+
     return (
       // <Auth>
       <Layout>
@@ -245,7 +230,6 @@ class Team extends React.Component {
           </Paper>
         </div>
       </Layout>
-      // </Auth>
     )
   }
 }
