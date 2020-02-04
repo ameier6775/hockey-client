@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import Auth from '../components/Auth'
 import FavButton from '../components/FavButton'
 import UnfavButton from '../components/UnfavButton'
+import '../index.css'
 
 class Team extends React.Component {
   constructor(props) {
@@ -38,8 +39,6 @@ class Team extends React.Component {
       teamStart: '',
       name: '',
       location: '',
-      // savePctgRank: '',
-      // shotsPerGameRank: '',
       roster: [
         {
           id: '',
@@ -157,16 +156,14 @@ class Team extends React.Component {
             style={{
               position: '-webkit-sticky',
               top: 0,
+              color: 'rgb(234, 140, 0)',
+              backgroundColor: '#696969',
             }}
             elevation={10}
           >
             <center>
               <Typography name="favoriteTeam">
-                {this.state.favorite && (
-                  <Icon fontSize="large" color="primary">
-                    star
-                  </Icon>
-                )}
+                {this.state.favorite && <Icon>star</Icon>}
               </Typography>
               <br />
               <Typography variant="h2">
@@ -179,9 +176,13 @@ class Team extends React.Component {
               <Typography variant="h6">
                 <b>EST: {this.state.teamStart}</b>
               </Typography>
+
               <Typography variant="overline">
-                <em>{this.state.venue}</em>
+                <b>
+                  <em>{this.state.venue}</em>
+                </b>
               </Typography>
+
               <br />
               <Typography variant="h5">
                 {/* <em>Season Statistics:</em>{' '} */}

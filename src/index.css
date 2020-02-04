@@ -21,10 +21,14 @@ code {
 
 .player-card-content {
   text-align: center;
-  border: 4px solid rgb(244, 151, 13);
+  border: 4px solid rgb(234, 140, 0);
   margin: 5px;
 }
 
 .orange {
-  color: orange;
+  color: (234, 140, 0);
+}
+
+.borderButton {
+  border: 4px solid rgb(234, 140, 0);
 }

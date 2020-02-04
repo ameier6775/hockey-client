@@ -49,9 +49,16 @@ class Teams extends Component {
                     width: '400px',
                     margin: '10px',
                     textAlign: 'left',
+                    border: '2.5px solid rgb(234, 140, 0)',
+                    backgroundColor: '#696969',
                   }}
                 >
-                  <CardContent>
+                  <CardContent
+                    style={{
+                      background: '#696969',
+                      color: 'rgb(234, 140, 0)',
+                    }}
+                  >
                     <Typography align="center" name="favoriteTeam">
                       {team.favorite && (
                         <Icon fontSize="large" color="primary">
@@ -69,10 +76,24 @@ class Teams extends Component {
                         marginTop: '30px',
                       }}
                     >
-                      <a href={team.officialSiteUrl}>WEBSITE</a>
+                      <b>
+                        <a
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                          href={team.officialSiteUrl}
+                        >
+                          WEBSITE
+                        </a>
+                      </b>
                     </Typography>
                     <Typography variant="overline">
-                      <Link to={`/team/${team.id}`}>View Team</Link>
+                      <b>
+                        <Link
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                          to={`/team/${team.id}`}
+                        >
+                          View Team
+                        </Link>
+                      </b>
                     </Typography>
                   </CardContent>
                 </Card>

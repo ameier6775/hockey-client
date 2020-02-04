@@ -33,6 +33,7 @@ export default props => (
     </AppBar>
     <div
       style={{
+        background: '#696969',
         paddingTop: '70px',
         width: '100%',
         overflow: 'auto',

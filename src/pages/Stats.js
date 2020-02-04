@@ -12,6 +12,8 @@ import {
 import Auth from '../components/Auth'
 import sortBy from 'lodash/sortBy'
 import { VictoryPie } from 'victory'
+import '../index.css'
+import { emphasize } from '@material-ui/core/styles'
 
 class Stats extends React.Component {
   constructor() {
@@ -206,6 +208,7 @@ class Stats extends React.Component {
     this.setState({
       favPlayers: favPlayers.data,
     })
+    console.log(favPlayers)
   }
 
   render() {
@@ -321,11 +324,8 @@ class Stats extends React.Component {
                 <TableCell onClick={e => this.sortPlayer('plusMinus')}>
                   <em>+ / -</em>
                 </TableCell>
-                {/* <TableCell onClick={e => this.sortPlayer('shootsCatches')}>
-                  <em>Shoots</em>
-                </TableCell> */}
-                <TableCell onClick={e => this.sortPlayer('shotPct')}>
-                  <em>Shooting %</em>
+                <TableCell onClick={e => this.sortPlayer('shots')}>
+                  <em>Shots On Goal</em>
                 </TableCell>
                 <TableCell onClick={e => this.sortPlayer('timeOnIcePerGame')}>
                   <em>TOI</em>
@@ -336,9 +336,6 @@ class Stats extends React.Component {
                 <TableCell onClick={e => this.sortPlayer('blocks')}>
                   <em>Blocks</em>
                 </TableCell>
-                {/* <TableCell onClick={e => this.sortPlayer('gameWinningGoals')}>
-                  <em>GWG</em>
-                </TableCell> */}
                 <TableCell onClick={e => this.sortPlayer('powerPlayPoints')}>
                   <em>PPP</em>
                 </TableCell>
@@ -359,29 +356,85 @@ class Stats extends React.Component {
                       <TableCell>{player.assists}</TableCell>
                       <TableCell>{player.points}</TableCell>
                       <TableCell>{player.plusMinus}</TableCell>
-                      {/* <TableCell>{player.shootsCatches}</TableCell> */}
-                      <TableCell>{player.shotPct}%</TableCell>
+                      <TableCell>{player.shots}</TableCell>
                       <TableCell>{player.timeOnIcePerGame}</TableCell>
                       <TableCell>{player.hits}</TableCell>
                       <TableCell>{player.blocks}</TableCell>
-                      {/* <TableCell>{player.gameWinningGoals}</TableCell> */}
                       <TableCell>{player.powerPlayPoints}</TableCell>
                       <TableCell>{player.powerPlayGoals}</TableCell>
-                      <VictoryPie
-                        colorScale={[
-                          'tomato',
-                          'orange',
-                          'gold',
-                          'cyan',
-                          'navy',
-                        ]}
-                        data={[
-                          { x: 1, y: player.goals, label: 'Goals' },
-                          { x: 2, y: player.assists, label: 'Assists' },
-                          { x: 3, y: player.blocks, label: 'Blocks' },
-                          { x: 4, y: player.hits, label: 'Hits' },
-                        ]}
-                      />{' '}
+                      <em>
+                        <VictoryPie
+                          cornerRadius={({ datum }) => datum.y * 0.6}
+                          style={{
+                            width: '10%',
+                            data: {
+                              fillOpacity: 0.9,
+                              stroke: '#f57c00',
+                              strokeWidth: 3,
+                            },
+                            labels: {
+                              fontSize: 20,
+                              fill: '#f57c00',
+                            },
+                          }}
+                          colorScale={['696969']}
+                          data={[
+                            {
+                              x: 1,
+                              y: player.goals,
+                              label: `${player.goals} G`,
+                            },
+                            {
+                              x: 2,
+                              y: player.assists,
+                              label: `${player.assists} A`,
+                            },
+                            {
+                              x: 3,
+                              y: player.blocks,
+                              label: `${player.blocks} B`,
+                            },
+                            { x: 4, y: player.hits, label: `${player.hits} H` },
+                            {
+                              x: 4,
+                              y: player.powerPlayPoints,
+                              label: `${player.powerPlayPoints} PPP`,
+                            },
+                          ]}
+                          events={[
+                            {
+                              childName: 'all',
+                              target: 'data',
+                              eventHandlers: {
+                                onClick: () => {
+                                  return [
+                                    {
+                                      target: 'data',
+                                      mutation: ({ style }) => {
+                                        return style.fill === '#f57c00'
+                                          ? null
+                                          : {
+                                              style: {
+                                                fill: '#f57c00',
+                                              },
+                                            }
+                                      },
+                                    },
+                                    {
+                                      target: 'labels',
+                                      mutation: ({ text }) => {
+                                        return text === 'selected'
+                                          ? null
+                                          : { text: 'selected' }
+                                      },
+                                    },
+                                  ]
+                                },
+                              },
+                            },
+                          ]}
+                        />{' '}
+                      </em>
                     </TableRow>
                   )
                 })}
