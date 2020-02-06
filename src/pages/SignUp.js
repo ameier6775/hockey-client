@@ -1,10 +1,11 @@
 import React from 'react'
-import { Typography, Button, TextField } from '@material-ui/core'
+import { Typography, Button, TextField, CardActions } from '@material-ui/core'
 import Axios from 'axios'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
 import UserCard from '../components/UserCard'
 import Layout from '../components/Layout'
+import PersonAddIcon from '@material-ui/icons/PersonAdd'
 
 const useStyles = () =>
   makeStyles({
@@ -55,6 +56,7 @@ class User extends React.Component {
         <UserCard header="SIGN UP">
           {' '}
           <TextField
+            autoFocus
             className={classes.root}
             fullWidth
             margin="normal"
@@ -91,15 +93,26 @@ class User extends React.Component {
               paddingBottom: '10px',
             }}
           ></TextField>
-          <Button
-            variant="outlined"
-            onClick={this.handleSubmit}
-            color="inherit"
-          >
-            <b>
-              <em>SIGN UP</em>
-            </b>
-          </Button>
+          <CardActions style={{ justifyContent: 'center' }}>
+            <Button
+              size="large"
+              style={{
+                justifyContent: 'center',
+              }}
+              variant="outlined"
+              onClick={this.handleSubmit}
+              color="inherit"
+            >
+              <b>
+                <em>SIGN UP</em>
+              </b>
+              <PersonAddIcon
+                style={{
+                  paddingLeft: '10px',
+                }}
+              ></PersonAddIcon>
+            </Button>
+          </CardActions>
           <Typography align="center" style={{ paddingTop: '10px' }}>
             Already have an account?{' '}
             <Link className="orange" to={`/login`}>

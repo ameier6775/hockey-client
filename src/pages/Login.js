@@ -1,9 +1,10 @@
 import React from 'react'
-import { Typography, Button, TextField } from '@material-ui/core'
+import { Typography, Button, TextField, CardActions } from '@material-ui/core'
 import Layout from '../components/Layout'
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import UserCard from '../components/UserCard'
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 
 class Login extends React.Component {
   constructor(props) {
@@ -36,6 +37,8 @@ class Login extends React.Component {
         <UserCard header="LOGIN">
           {' '}
           <TextField
+            color="blue"
+            autoFocus
             fullWidth
             margin="normal"
             label="Username"
@@ -58,12 +61,24 @@ class Login extends React.Component {
               paddingBottom: '10px',
             }}
           ></TextField>
-          <Button variant="outlined" onClick={this.handleLogin} color="inherit">
-            <b>
-              <em>LOGIN</em>
-            </b>
-          </Button>
-          <Typography align="center" style={{ paddingTop: '10px' }}>
+          <CardActions style={{ justifyContent: 'center' }}>
+            <Button
+              size="large"
+              variant="outlined"
+              onClick={this.handleLogin}
+              color="inherit"
+            >
+              <b>
+                <em>LOGIN</em>
+              </b>
+              <ArrowForwardIosIcon
+                style={{
+                  paddingLeft: '10px',
+                }}
+              ></ArrowForwardIosIcon>
+            </Button>
+          </CardActions>
+          <Typography fullWidth align="center" style={{ paddingTop: '10px' }}>
             Don't have an account?{' '}
             <Link className="orange" to={`/signup`}>
               <b>

@@ -29,6 +29,7 @@ export default class UserCard extends React.Component {
               height: 'auto',
               boxShadow: '0px 0px 25px rgb(234, 140, 0)',
               color: 'rgb(234, 140, 0)',
+              minWidth: '300px',
             }}
           >
             <CardContent
@@ -37,7 +38,14 @@ export default class UserCard extends React.Component {
                 textAlign: 'lef',
               }}
             >
-              <Typography align="center" variant="h3">
+              <Typography
+                style={{
+                  paddingTop: '12px',
+                  paddingBottom: '12px',
+                }}
+                align="center"
+                variant="h3"
+              >
                 <b>{this.props.header}</b>
               </Typography>
               {this.props.children}
