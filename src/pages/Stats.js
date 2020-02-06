@@ -13,7 +13,6 @@ import Auth from '../components/Auth'
 import sortBy from 'lodash/sortBy'
 import { VictoryPie } from 'victory'
 import '../index.css'
-import { emphasize } from '@material-ui/core/styles'
 
 class Stats extends React.Component {
   constructor() {
@@ -226,39 +225,95 @@ class Stats extends React.Component {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell onClick={e => this.sortTeam('name')}>
-                    <em>Name</em>
-                  </TableCell>
-                  <TableCell onClick={e => this.sortTeam('division')}>
-                    <em>Division</em>
-                  </TableCell>
-                  <TableCell onClick={e => this.sortTeam('winNums')}>
-                    <em>Record</em>
-                  </TableCell>
-                  <TableCell onClick={e => this.sortTeam('ptsNums')}>
-                    <em>Points</em>
-                  </TableCell>
-                  <TableCell onClick={e => this.sortTeam('goalsPerGameNums')}>
-                    <em>Goals/Game</em>
+                  <TableCell
+                    align="center"
+                    style={{ color: 'rgb(234, 140, 0)' }}
+                    onClick={e => this.sortTeam('name')}
+                  >
+                    <b>
+                      <em>Name</em>
+                    </b>
                   </TableCell>
                   <TableCell
+                    align="center"
+                    style={{ color: 'rgb(234, 140, 0)' }}
+                    onClick={e => this.sortTeam('division')}
+                  >
+                    <b>
+                      <em>Division</em>
+                    </b>
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: 'rgb(234, 140, 0)' }}
+                    onClick={e => this.sortTeam('winNums')}
+                  >
+                    <b>
+                      <em>Record</em>
+                    </b>
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: 'rgb(234, 140, 0)' }}
+                    onClick={e => this.sortTeam('ptsNums')}
+                  >
+                    <b>
+                      <em>Points</em>
+                    </b>
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: 'rgb(234, 140, 0)' }}
+                    onClick={e => this.sortTeam('goalsPerGameNums')}
+                  >
+                    <b>
+                      <em>Goals/Game</em>
+                    </b>
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: 'rgb(234, 140, 0)' }}
                     onClick={e => this.sortTeam('goalsAgainstPerGameNums')}
                   >
-                    <em>Goals Against/Game</em>
-                  </TableCell>
-                  <TableCell onClick={e => this.sortTeam('shotsPerGameNums')}>
-                    <em>Shots/Game</em>
+                    <b>
+                      <em>Goals Against/Game</em>
+                    </b>
                   </TableCell>
                   <TableCell
+                    align="center"
+                    style={{ color: 'rgb(234, 140, 0)' }}
+                    onClick={e => this.sortTeam('shotsPerGameNums')}
+                  >
+                    <b>
+                      <em>Shots/Game</em>
+                    </b>
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: 'rgb(234, 140, 0)' }}
                     onClick={e => this.sortTeam('shotsAllowedPerGameNums')}
                   >
-                    <em>Shots Against/Game</em>
+                    <b>
+                      <em>Shots Against/Game</em>
+                    </b>
                   </TableCell>
-                  <TableCell onClick={e => this.sortTeam('powerPlayPct')}>
-                    <em>Power Play</em>
+                  <TableCell
+                    align="center"
+                    style={{ color: 'rgb(234, 140, 0)' }}
+                    onClick={e => this.sortTeam('powerPlayPct')}
+                  >
+                    <b>
+                      <em>Power Play</em>
+                    </b>
                   </TableCell>
-                  <TableCell onClick={e => this.sortTeam('penaltyKillPct')}>
-                    <em>Penalty Kill</em>
+                  <TableCell
+                    align="center"
+                    style={{ color: 'rgb(234, 140, 0)' }}
+                    onClick={e => this.sortTeam('penaltyKillPct')}
+                  >
+                    <b>
+                      <em>Penalty Kill</em>
+                    </b>
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -267,30 +322,82 @@ class Stats extends React.Component {
                   this.state.favTeams.map(team => {
                     return (
                       <TableRow key={team.id}>
-                        <TableCell>
-                          <a href={`/team/${team.id}`}>{team.name}</a>
+                        <TableCell align="center">
+                          <b>
+                            <a
+                              style={{ color: 'rgb(234, 140, 0)' }}
+                              href={`/team/${team.id}`}
+                            >
+                              {team.name}
+                            </a>
+                          </b>
                         </TableCell>
-                        <TableCell>{team.division}</TableCell>
-                        <TableCell>
-                          {team.winNums}-{team.lossNums}-{team.otNums}
+                        <TableCell
+                          align="center"
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                        >
+                          <b>{team.division}</b>
                         </TableCell>
-                        <TableCell>
-                          {team.ptsNums} ({team.ptsRank})
+                        <TableCell
+                          align="center"
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                        >
+                          <b>
+                            {team.winNums}-{team.lossNums}-{team.otNums}
+                          </b>
                         </TableCell>
-                        <TableCell>
-                          {team.goalsPerGameNums} ({team.goalsPerGameRank})
+                        <TableCell
+                          align="center"
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                        >
+                          <b>
+                            {team.ptsNums} ({team.ptsRank})
+                          </b>
                         </TableCell>
-                        <TableCell>
-                          {team.goalsAgainstPerGameNums} (
-                          {team.goalsAgainstPerGameRank})
+                        <TableCell
+                          align="center"
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                        >
+                          <b>
+                            {team.goalsPerGameNums} ({team.goalsPerGameRank})
+                          </b>
                         </TableCell>
-                        <TableCell>{team.shotsPerGameNums}</TableCell>
-                        <TableCell>{team.shotsAllowedPerGameNums}</TableCell>
-                        <TableCell>
-                          {team.powerPlayPct} ({team.powerPlayRank})
+                        <TableCell
+                          align="center"
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                        >
+                          <b>
+                            {team.goalsAgainstPerGameNums} (
+                            {team.goalsAgainstPerGameRank})
+                          </b>
                         </TableCell>
-                        <TableCell>
-                          {team.penaltyKillPct} ({team.penaltyKillRank})
+                        <TableCell
+                          align="center"
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                        >
+                          <b>{team.shotsPerGameNums}</b>
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                        >
+                          <b>{team.shotsAllowedPerGameNums}</b>
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                        >
+                          <b>
+                            {team.powerPlayPct} ({team.powerPlayRank})
+                          </b>
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                        >
+                          <b>
+                            {team.penaltyKillPct} ({team.penaltyKillRank})
+                          </b>
                         </TableCell>
                       </TableRow>
                     )
@@ -309,38 +416,104 @@ class Stats extends React.Component {
           >
             <TableHead>
               <TableRow>
-                <TableCell onClick={e => this.sortPlayer('fullName')}>
-                  <em>Name</em>
+                <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('fullName')}
+                >
+                  <b>
+                    <em>Name</em>
+                  </b>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('goals')}>
-                  <em>Goals</em>
+                <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('goals')}
+                >
+                  <b>
+                    <em>Goals</em>
+                  </b>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('assists')}>
-                  <em>Assists</em>
+                <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('assists')}
+                >
+                  <b>
+                    <em>Assists</em>
+                  </b>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('points')}>
-                  <em>Points</em>
+                <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('points')}
+                >
+                  <b>
+                    <em>Points</em>
+                  </b>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('plusMinus')}>
-                  <em>+ / -</em>
+                <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('plusMinus')}
+                >
+                  <b>
+                    <em>+ / -</em>
+                  </b>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('shots')}>
-                  <em>Shots On Goal</em>
+                <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('shots')}
+                >
+                  <b>
+                    <em>Shots On Goal</em>
+                  </b>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('timeOnIcePerGame')}>
-                  <em>TOI</em>
+                <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('timeOnIcePerGame')}
+                >
+                  <b>
+                    <em>TOI</em>
+                  </b>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('hits')}>
-                  <em>Hits</em>
+                <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('hits')}
+                >
+                  <b>
+                    <em>Hits</em>
+                  </b>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('blocks')}>
-                  <em>Blocks</em>
+                <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('blocks')}
+                >
+                  <b>
+                    <em>Blocks</em>
+                  </b>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('powerPlayPoints')}>
-                  <em>PPP</em>
+                <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('powerPlayPoints')}
+                >
+                  <b>
+                    <em>PPP</em>
+                  </b>
                 </TableCell>
-                <TableCell onClick={e => this.sortPlayer('powerPlayGoals')}>
-                  <em>PPG</em>
+                <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('powerPlayGoals')}
+                >
+                  <b>
+                    <em>PPG</em>
+                  </b>
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -349,92 +522,123 @@ class Stats extends React.Component {
                 this.state.favPlayers.map(player => {
                   return (
                     <TableRow style={{}} key={player.id}>
-                      <TableCell>
-                        <a href={`/player/${player.id}`}>{player.fullName}</a>
+                      <TableCell align="center">
+                        <a
+                          style={{ color: 'rgb(234, 140, 0)' }}
+                          href={`/player/${player.id}`}
+                        >
+                          {player.fullName}
+                        </a>
                       </TableCell>
-                      <TableCell>{player.goals}</TableCell>
-                      <TableCell>{player.assists}</TableCell>
-                      <TableCell>{player.points}</TableCell>
-                      <TableCell>{player.plusMinus}</TableCell>
-                      <TableCell>{player.shots}</TableCell>
-                      <TableCell>{player.timeOnIcePerGame}</TableCell>
-                      <TableCell>{player.hits}</TableCell>
-                      <TableCell>{player.blocks}</TableCell>
-                      <TableCell>{player.powerPlayPoints}</TableCell>
-                      <TableCell>{player.powerPlayGoals}</TableCell>
-                      <em>
-                        <VictoryPie
-                          cornerRadius={({ datum }) => datum.y * 0.6}
-                          style={{
-                            width: '10%',
-                            data: {
-                              fillOpacity: 0.9,
-                              stroke: '#f57c00',
-                              strokeWidth: 3,
-                            },
-                            labels: {
-                              fontSize: 20,
-                              fill: '#f57c00',
-                            },
-                          }}
-                          colorScale={['696969']}
-                          data={[
-                            {
-                              x: 1,
-                              y: player.goals,
-                              label: `${player.goals} G`,
-                            },
-                            {
-                              x: 2,
-                              y: player.assists,
-                              label: `${player.assists} A`,
-                            },
-                            {
-                              x: 3,
-                              y: player.blocks,
-                              label: `${player.blocks} B`,
-                            },
-                            { x: 4, y: player.hits, label: `${player.hits} H` },
-                            {
-                              x: 4,
-                              y: player.powerPlayPoints,
-                              label: `${player.powerPlayPoints} PPP`,
-                            },
-                          ]}
-                          events={[
-                            {
-                              childName: 'all',
-                              target: 'data',
-                              eventHandlers: {
-                                onClick: () => {
-                                  return [
-                                    {
-                                      target: 'data',
-                                      mutation: ({ style }) => {
-                                        return style.fill === '#f57c00'
-                                          ? null
-                                          : {
-                                              style: {
-                                                fill: '#f57c00',
-                                              },
-                                            }
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <b>{player.goals}</b>
+                      </TableCell>
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <b>{player.assists}</b>
+                      </TableCell>
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <b>{player.points}</b>
+                      </TableCell>
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <b>{player.plusMinus}</b>
+                      </TableCell>
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <b>{player.shots}</b>
+                      </TableCell>
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <b>{player.timeOnIcePerGame}</b>
+                      </TableCell>
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <b>{player.hits}</b>
+                      </TableCell>
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <b>{player.blocks}</b>
+                      </TableCell>
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <b>{player.powerPlayPoints}</b>
+                      </TableCell>
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <b>{player.powerPlayGoals}</b>
+                      </TableCell>
+                      <b>
+                        <em>
+                          <VictoryPie
+                            cornerRadius={({ datum }) => datum.y * 0.6}
+                            style={{
+                              width: '10%',
+                              data: {
+                                fillOpacity: 0.9,
+                                stroke: '#f57c00',
+                                strokeWidth: 3,
+                              },
+                              labels: {
+                                fontSize: 20,
+                                fill: '#f57c00',
+                              },
+                            }}
+                            colorScale={['696969']}
+                            data={[
+                              {
+                                x: 1,
+                                y: player.goals,
+                                label: `${player.goals} G`,
+                              },
+                              {
+                                x: 2,
+                                y: player.assists,
+                                label: `${player.assists} A`,
+                              },
+                              {
+                                x: 3,
+                                y: player.blocks,
+                                label: `${player.blocks} B`,
+                              },
+                              {
+                                x: 4,
+                                y: player.hits,
+                                label: `${player.hits} H`,
+                              },
+                              {
+                                x: 4,
+                                y: player.powerPlayPoints,
+                                label: `${player.powerPlayPoints} PPP`,
+                              },
+                            ]}
+                            events={[
+                              {
+                                childName: 'all',
+                                target: 'data',
+                                eventHandlers: {
+                                  onClick: () => {
+                                    return [
+                                      {
+                                        target: 'data',
+                                        mutation: ({ style }) => {
+                                          return style.fill === '#f57c00'
+                                            ? null
+                                            : {
+                                                style: {
+                                                  fill: '#f57c00',
+                                                },
+                                              }
+                                        },
                                       },
-                                    },
-                                    {
-                                      target: 'labels',
-                                      mutation: ({ text }) => {
-                                        return text === 'selected'
-                                          ? null
-                                          : { text: 'selected' }
+                                      {
+                                        target: 'labels',
+                                        mutation: ({ text }) => {
+                                          return text === 'selected'
+                                            ? null
+                                            : { text: 'selected' }
+                                        },
                                       },
-                                    },
-                                  ]
+                                    ]
+                                  },
                                 },
                               },
-                            },
-                          ]}
-                        />{' '}
-                      </em>
+                            ]}
+                          />{' '}
+                        </em>
+                      </b>
                     </TableRow>
                   )
                 })}

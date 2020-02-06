@@ -78,7 +78,7 @@ class Login extends React.Component {
               ></ArrowForwardIosIcon>
             </Button>
           </CardActions>
-          <Typography fullWidth align="center" style={{ paddingTop: '10px' }}>
+          <Typography align="center" style={{ paddingTop: '10px' }}>
             Don't have an account?{' '}
             <Link className="orange" to={`/signup`}>
               <b>
