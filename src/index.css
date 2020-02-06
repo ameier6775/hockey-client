@@ -26,9 +26,13 @@ code {
 }
 
 .orange {
-  color: (234, 140, 0);
+  color: rgb(234, 140, 0);
 }
 
 .borderButton {
   border: 4px solid rgb(234, 140, 0);
+}
+
+.gray {
+  color: #696969;
 }

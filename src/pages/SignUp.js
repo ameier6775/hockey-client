@@ -2,7 +2,6 @@ import React from 'react'
 import { Typography, Button, TextField } from '@material-ui/core'
 import Axios from 'axios'
 import { Link } from 'react-router-dom'
-import { orange } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
 import UserCard from '../components/UserCard'
 import Layout from '../components/Layout'
@@ -10,9 +9,7 @@ import Layout from '../components/Layout'
 const useStyles = () =>
   makeStyles({
     root: {
-      '& MuiFormLabel-root.Mui-focused': {
-        color: orange[500],
-      },
+      color: 'rbg(234, 140, 0)',
     },
   })
 class User extends React.Component {
@@ -30,11 +27,11 @@ class User extends React.Component {
 
   async handleSubmit(e) {
     e.preventDefault()
-    if (this.state.userName.length <= 3 && this.state.password.length <= 3) {
+    if (this.state.userName.length < 3 && this.state.password.length < 3) {
       window.alert('Username & password must be at least three characters long')
-    } else if (this.state.userName.length <= 3) {
+    } else if (this.state.userName.length < 3) {
       window.alert('Username must be at least three characters long')
-    } else if (this.state.password.length <= 3) {
+    } else if (this.state.password.length < 3) {
       window.alert('Password must be at least three characters long')
     } else if (this.state.password !== this.state.verifyPassword) {
       window.alert('Passwords do not match')
@@ -67,6 +64,7 @@ class User extends React.Component {
             type="text"
             placeholder="userName"
             variant="outlined"
+            color="inherit"
           ></TextField>
           <TextField
             fullWidth
@@ -77,6 +75,7 @@ class User extends React.Component {
             type="password"
             placeholder="password"
             variant="outlined"
+            color="inherit"
           ></TextField>
           <TextField
             margin="normal"
@@ -87,16 +86,28 @@ class User extends React.Component {
             type="password"
             placeholder="verify"
             variant="outlined"
+            color="inherit"
+            style={{
+              paddingBottom: '10px',
+            }}
           ></TextField>
-          <Typography component="label">
-            <Button onClick={this.handleSubmit} color="primary">
+          <Button
+            variant="outlined"
+            onClick={this.handleSubmit}
+            color="inherit"
+          >
+            <b>
               <em>SIGN UP</em>
-            </Button>
+            </b>
+          </Button>
+          <Typography align="center" style={{ paddingTop: '10px' }}>
+            Already have an account?{' '}
+            <Link className="orange" to={`/login`}>
+              <b>
+                <em>LOGIN</em>
+              </b>
+            </Link>
           </Typography>
-          Already have an account?{' '}
-          <Link color="primary" to={`/login`}>
-            <em>LOGIN</em>
-          </Link>
         </UserCard>
       </Layout>
     )

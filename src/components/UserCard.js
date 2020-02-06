@@ -18,6 +18,7 @@ export default class UserCard extends React.Component {
         <form>
           <Card
             style={{
+              backgroundColor: '#696969',
               margin: '10px',
               marginTop: '100px',
               marginBottom: '100px',
@@ -26,11 +27,17 @@ export default class UserCard extends React.Component {
               flexWrap: 'wrap',
               width: '58%',
               height: 'auto',
-              boxShadow: '0px 0px 30px #F79238',
+              boxShadow: '0px 0px 25px rgb(234, 140, 0)',
+              color: 'rgb(234, 140, 0)',
             }}
           >
-            <CardContent>
-              <Typography variant="h3">
+            <CardContent
+              style={{
+                border: '1px solid rgb(234, 140, 0)',
+                textAlign: 'lef',
+              }}
+            >
+              <Typography align="center" variant="h3">
                 <b>{this.props.header}</b>
               </Typography>
               {this.props.children}

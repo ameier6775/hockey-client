@@ -4,29 +4,29 @@ import { Link } from 'react-router-dom'
 
 export default props => (
   <div>
-    <AppBar color="primary">
+    <AppBar className="orange">
       <Link className="nav-item" to="/">
-        <Typography gutterBottom variant="body1">
+        <Typography className="gray" gutterBottom variant="body1">
           Home
         </Typography>
       </Link>
       <Link className="nav-item" to="/teams">
-        <Typography gutterBottom variant="body1">
+        <Typography className="gray" gutterBottom variant="body1">
           Teams
         </Typography>
       </Link>
       <Link className="nav-item" to="/stats">
-        <Typography gutterBottom variant="body1">
+        <Typography className="gray" gutterBottom variant="body1">
           Stats
         </Typography>
       </Link>
       <Link className="nav-item" to="/login">
-        <Typography gutterBottom variant="body1">
+        <Typography className="gray" gutterBottom variant="body1">
           Login
         </Typography>
       </Link>
       <Link className="nav-item" to="/signup">
-        <Typography gutterBottom variant="body1">
+        <Typography className="gray" gutterBottom variant="body1">
           Sign Up
         </Typography>
       </Link>
@@ -40,6 +40,7 @@ export default props => (
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        minHeight: '600px',
       }}
     >
       {props.children}

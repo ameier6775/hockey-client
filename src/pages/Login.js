@@ -54,16 +54,23 @@ class Login extends React.Component {
             onChange={this.handleChange}
             placeholder="password"
             variant="outlined"
+            style={{
+              paddingBottom: '10px',
+            }}
           ></TextField>
-          <Typography component="label">
-            <Button onClick={this.handleLogin} color="primary">
+          <Button variant="outlined" onClick={this.handleLogin} color="inherit">
+            <b>
               <em>LOGIN</em>
-            </Button>
+            </b>
+          </Button>
+          <Typography align="center" style={{ paddingTop: '10px' }}>
+            Don't have an account?{' '}
+            <Link className="orange" to={`/signup`}>
+              <b>
+                <em>SIGN UP</em>
+              </b>
+            </Link>
           </Typography>
-          Don't have an account?{' '}
-          <Link color="primary" to={`/signup`}>
-            <em>SIGN UP</em>
-          </Link>
         </UserCard>
       </Layout>
     )
