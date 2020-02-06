@@ -6,27 +6,27 @@ export default props => (
   <div>
     <AppBar className="orange">
       <Link className="nav-item" to="/">
-        <Typography className="gray" gutterBottom variant="body1">
+        <Typography className="gray" gutterBottom variant="h6">
           Home
         </Typography>
       </Link>
       <Link className="nav-item" to="/teams">
-        <Typography className="gray" gutterBottom variant="body1">
+        <Typography className="gray" gutterBottom variant="h6">
           Teams
         </Typography>
       </Link>
       <Link className="nav-item" to="/stats">
-        <Typography className="gray" gutterBottom variant="body1">
+        <Typography className="gray" gutterBottom variant="h6">
           Stats
         </Typography>
       </Link>
       <Link className="nav-item" to="/login">
-        <Typography className="gray" gutterBottom variant="body1">
+        <Typography className="gray" gutterBottom variant="h6">
           Login
         </Typography>
       </Link>
       <Link className="nav-item" to="/signup">
-        <Typography className="gray" gutterBottom variant="body1">
+        <Typography className="gray" gutterBottom variant="h6">
           Sign Up
         </Typography>
       </Link>

@@ -10,6 +10,10 @@ export default function UnfavTeam(props) {
       type="submit"
       color="inherit"
       onClick={props.onClick}
+      style={{
+        border: '1px solid rgb(234, 140, 0)',
+        marginBottom: '25px',
+      }}
     >
       Unfavorite
     </Button>

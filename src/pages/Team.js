@@ -163,7 +163,7 @@ class Team extends React.Component {
           >
             <center>
               <Typography name="favoriteTeam">
-                {this.state.favorite && <Icon>star</Icon>}
+                {this.state.favorite && <Icon fontSize="large">star</Icon>}
               </Typography>
               <br />
               <Typography variant="h2">
@@ -185,7 +185,6 @@ class Team extends React.Component {
 
               <br />
               <Typography variant="h5">
-                {/* <em>Season Statistics:</em>{' '} */}
                 <b>
                   {this.state.wins} - {this.state.losses} - {this.state.otl} ,{' '}
                   {this.state.points} points
@@ -201,6 +200,8 @@ class Team extends React.Component {
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'space-evenly',
+              backgroundColor: '#696969',
+              border: '4px solid rgb(234, 140, 0)',
             }}
           >
             {this.state.roster.map(player => {
@@ -210,16 +211,19 @@ class Team extends React.Component {
                     width: '400px',
                     margin: '10px',
                     textAlign: 'left',
+                    backgroundColor: '#696969',
+                    border: '2px solid rgb(234, 140, 0)',
+                    color: 'rgb(234, 140, 0)',
                   }}
                   key={player.person.id}
                 >
                   <CardContent>
                     <Typography align="center" variant="h5">
                       {' '}
-                      {player.person.fullName}
+                      <b>{player.person.fullName}</b>
                     </Typography>
                     <Typography variant="h5" align="center">
-                      #{player ? player.jerseyNumber : ''}
+                      <b>#{player ? player.jerseyNumber : ''}</b>
                     </Typography>
                     <Typography>
                       <Link to={`/player/${player.person.id}`}>Stats</Link>
