@@ -5,6 +5,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Typography,
 } from '@material-ui/core'
 import Axios from 'axios'
 import Layout from '../components/Layout'
@@ -107,46 +108,107 @@ class Home extends Component {
                   }}
                   key={division.division.id}
                 >
-                  <TableHead align="left" component="h2">
+                  <TableHead
+                    style={{ color: 'rgb(234, 140, 0)' }}
+                    align="left"
+                    component="h2"
+                  >
                     <b>{division.division.name}</b>
                   </TableHead>
                   <TableBody>
-                    <TableRow>
-                      <TableCell>
-                        <em>#</em>
+                    <TableRow
+                      align="center"
+                      style={{ color: 'rgb(234, 140, 0)' }}
+                    >
+                      <TableCell
+                        align="center"
+                        style={{ color: 'rgb(234, 140, 0)' }}
+                      >
+                        <b>
+                          <em>#</em>
+                        </b>
                       </TableCell>
-                      <TableCell>
-                        <em>Team</em>
+                      <TableCell
+                        align="center"
+                        style={{ color: 'rgb(234, 140, 0)' }}
+                      >
+                        <b>
+                          <em>Team</em>
+                        </b>
                       </TableCell>
-                      <TableCell>
-                        <em>Points</em>
+                      <TableCell
+                        align="center"
+                        style={{ color: 'rgb(234, 140, 0)' }}
+                      >
+                        <b>
+                          <em>Points</em>
+                        </b>
                       </TableCell>
-                      <TableCell>
-                        <em>Games Played</em>
+                      <TableCell
+                        align="center"
+                        style={{ color: 'rgb(234, 140, 0)' }}
+                      >
+                        <b>
+                          <em>Games Played</em>
+                        </b>
                       </TableCell>
-                      <TableCell>
-                        <em>Goal Differential</em>
+                      <TableCell
+                        align="center"
+                        style={{ color: 'rgb(234, 140, 0)' }}
+                      >
+                        <b>
+                          <em>Goal Differential</em>
+                        </b>
                       </TableCell>
-                      <TableCell>
-                        <em>Streak</em>
+                      <TableCell
+                        align="center"
+                        style={{ color: 'rgb(234, 140, 0)' }}
+                      >
+                        <b>
+                          <em>Streak</em>
+                        </b>
                       </TableCell>
                     </TableRow>
                     {division.teamRecords.map(record => {
                       return (
                         <TableRow key={record.team.id} variant="body2">
-                          <TableCell>{record.divisionRank}</TableCell>
-                          <TableCell>
-                            <a href={`/team/${record.team.id}`}>
-                              {record.team.name}
+                          <TableCell
+                            align="center"
+                            style={{ color: 'rgb(234, 140, 0)' }}
+                          >
+                            <b>{record.divisionRank}</b>
+                          </TableCell>
+                          <TableCell align="center">
+                            <a
+                              style={{ color: 'rgb(234, 140, 0)' }}
+                              href={`/team/${record.team.id}`}
+                            >
+                              <b>{record.team.name}</b>
                             </a>
                           </TableCell>
-                          <TableCell>{record.points}</TableCell>
-                          <TableCell>{record.gamesPlayed}</TableCell>
-                          <TableCell>
-                            {record.goalsScored - record.goalsAgainst}
+                          <TableCell
+                            align="center"
+                            style={{ color: 'rgb(234, 140, 0)' }}
+                          >
+                            <b>{record.points}</b>
                           </TableCell>
-                          <TableCell>
-                            {/* {record.streak.streakCode} */}
+                          <TableCell
+                            align="center"
+                            style={{ color: 'rgb(234, 140, 0)' }}
+                          >
+                            <b>{record.gamesPlayed}</b>
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            style={{ color: 'rgb(234, 140, 0)' }}
+                          >
+                            <b>{record.goalsScored - record.goalsAgainst}</b>
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            style={{ color: 'rgb(234, 140, 0)' }}
+                          >
+                            <b>{record.streak.streakCode}</b>
                           </TableCell>
                         </TableRow>
                       )

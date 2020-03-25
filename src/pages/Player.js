@@ -161,9 +161,12 @@ class Player extends React.Component {
               position: '-webkit-sticky',
               top: 0,
               marginTop: 15,
-              border: '4px solid orange',
+              border: '4px solid rgb(234, 140, 0)',
               backgroundColor: 'white',
               padding: '15px',
+              color: 'rgb(234, 140, 0)',
+              background: '#696969',
+              width: '400px',
             }}
             elevation={10}
           >
@@ -178,8 +181,9 @@ class Player extends React.Component {
               style={{
                 width: '400px',
                 margin: '10px',
-                backgroundColor: 'white',
-                border: '5px solid orange',
+                color: 'rgb(234, 140, 0)',
+                backgroundColor: '#696969',
+                border: '5px solid rgb(234, 140, 0)',
               }}
               key={this.state.fullName}
             >
@@ -205,6 +209,7 @@ class Player extends React.Component {
                     <b>
                       {this.state.captain ? 'Captain' : ''}
                       {this.state.alternate ? 'Assistant Captain' : ''}
+                      {this.state.rookie ? '(Rookie)' : ''}
                     </b>
                   </center>
                 </Typography>
@@ -212,34 +217,42 @@ class Player extends React.Component {
                   header="Position: "
                   description={this.state.position}
                 ></PlayerCardContent>
+                <br />
                 <PlayerCardContent
                   header="Team: "
                   description={this.state.currentTeam}
                 ></PlayerCardContent>
+                <br />
                 <PlayerCardContent
                   header="Age: "
                   description={this.state.currentAge}
                 ></PlayerCardContent>
+                <br />
                 <PlayerCardContent
                   header="Birthdate: "
                   description={this.state.birthDate}
                 ></PlayerCardContent>
+                <br />
                 <PlayerCardContent
                   header="Height: "
                   description={this.state.height}
                 ></PlayerCardContent>
+                <br />
                 <PlayerCardContent
                   header="Weight: "
                   description={this.state.weight}
                 ></PlayerCardContent>
+                <br />
                 <PlayerCardContent
                   header="Shoots: "
                   description={this.state.shootsCatches}
                 ></PlayerCardContent>
+                <br />
                 <PlayerCardContent
                   header="Nationality: "
                   description={this.state.nationality}
                 ></PlayerCardContent>
+                <br />
                 <PlayerCardContent
                   header="From: "
                   description={this.state.birthCity}

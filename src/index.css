@@ -36,3 +36,8 @@ code {
 .gray {
   color: #696969;
 }
+
+.MuiTableCell-head {
+  align-content: center;
+  color: rgb(234, 140, 0);
+}

@@ -234,7 +234,7 @@ class Stats extends React.Component {
                       <em>Name</em>
                     </b>
                   </TableCell>
-                  <TableCell
+                  {/* <TableCell
                     align="center"
                     style={{ color: 'rgb(234, 140, 0)' }}
                     onClick={e => this.sortTeam('division')}
@@ -242,7 +242,7 @@ class Stats extends React.Component {
                     <b>
                       <em>Division</em>
                     </b>
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell
                     align="center"
                     style={{ color: 'rgb(234, 140, 0)' }}
@@ -332,12 +332,12 @@ class Stats extends React.Component {
                             </a>
                           </b>
                         </TableCell>
-                        <TableCell
+                        {/* <TableCell
                           align="center"
                           style={{ color: 'rgb(234, 140, 0)' }}
                         >
                           <b>{team.division}</b>
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell
                           align="center"
                           style={{ color: 'rgb(234, 140, 0)' }}
@@ -509,12 +509,21 @@ class Stats extends React.Component {
                 <TableCell
                   align="center"
                   style={{ color: 'rgb(234, 140, 0)' }}
+                  onClick={e => this.sortPlayer('powerPlayPoints')}
+                >
+                  <b>
+                    <em>Breakdown</em>
+                  </b>
+                </TableCell>
+                {/* <TableCell
+                  align="center"
+                  style={{ color: 'rgb(234, 140, 0)' }}
                   onClick={e => this.sortPlayer('powerPlayGoals')}
                 >
                   <b>
                     <em>PPG</em>
                   </b>
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody align="center">
@@ -527,7 +536,7 @@ class Stats extends React.Component {
                           style={{ color: 'rgb(234, 140, 0)' }}
                           href={`/player/${player.id}`}
                         >
-                          {player.fullName}
+                          <b>{player.fullName}</b>
                         </a>
                       </TableCell>
                       <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
@@ -557,23 +566,25 @@ class Stats extends React.Component {
                       <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
                         <b>{player.powerPlayPoints}</b>
                       </TableCell>
-                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                      {/* <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
                         <b>{player.powerPlayGoals}</b>
-                      </TableCell>
+                      </TableCell> */}
                       <b>
                         <em>
                           <VictoryPie
-                            cornerRadius={({ datum }) => datum.y * 0.6}
+                            // innerRadius={({ datum }) => datum.y * 0.8}
+                            // cornerRadius={({ datum }) => datum.y * 0.35}
                             style={{
-                              width: '10%',
+                              width: '20%',
                               data: {
                                 fillOpacity: 0.9,
                                 stroke: '#f57c00',
                                 strokeWidth: 3,
                               },
                               labels: {
-                                fontSize: 20,
+                                fontSize: 18,
                                 fill: '#f57c00',
+                                fontWeight: 'bold',
                               },
                             }}
                             colorScale={['696969']}
@@ -599,7 +610,7 @@ class Stats extends React.Component {
                                 label: `${player.hits} H`,
                               },
                               {
-                                x: 4,
+                                x: 5,
                                 y: player.powerPlayPoints,
                                 label: `${player.powerPlayPoints} PPP`,
                               },
@@ -636,7 +647,7 @@ class Stats extends React.Component {
                                 },
                               },
                             ]}
-                          />{' '}
+                          />
                         </em>
                       </b>
                     </TableRow>

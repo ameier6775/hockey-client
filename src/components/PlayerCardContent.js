@@ -10,9 +10,9 @@ export default class PlayerCardContent extends React.Component {
   render() {
     return (
       <Typography variant="subtitle1">
-        <b>{this.props.header}</b>{' '}
+        <em>{this.props.header}</em>{' '}
         <div className="player-card-content">
-          <em>{this.props.description}</em>
+          <b>{this.props.description}</b>
         </div>
       </Typography>
     )

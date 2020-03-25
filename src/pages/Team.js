@@ -201,7 +201,7 @@ class Team extends React.Component {
               flexWrap: 'wrap',
               justifyContent: 'space-evenly',
               backgroundColor: '#696969',
-              border: '4px solid rgb(234, 140, 0)',
+              // border: '4px solid rgb(234, 140, 0)',
             }}
           >
             {this.state.roster.map(player => {
@@ -226,7 +226,7 @@ class Team extends React.Component {
                       <b>#{player ? player.jerseyNumber : ''}</b>
                     </Typography>
                     <Typography>
-                      <Link to={`/player/${player.person.id}`}>Stats</Link>
+                      <Link to={`/player/${player.person.id}`}>More Info</Link>
                     </Typography>
                   </CardContent>
                 </Card>
