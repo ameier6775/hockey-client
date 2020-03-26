@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import Auth from '../components/Auth'
 import sortBy from 'lodash/sortBy'
-import { VictoryPie } from 'victory'
+import { VictoryPie, VictoryContainer } from 'victory'
 import '../index.css'
 
 class Stats extends React.Component {
@@ -75,6 +75,13 @@ class Stats extends React.Component {
           shotPct: '',
           shots: '',
           timeOnIcePerGame: '',
+          lastYearGoals: '',
+          lastYearAssists: '',
+          lastYearPoints: '',
+          lastYearPowerPlayPoints: '',
+          lastYearShotsOnGoal: '',
+          lastYearPlusMinus: '',
+          lastYearHits: '',
         },
       ],
     }
@@ -506,15 +513,6 @@ class Stats extends React.Component {
                     <em>PPP</em>
                   </b>
                 </TableCell>
-                <TableCell
-                  align="center"
-                  style={{ color: 'rgb(234, 140, 0)' }}
-                  onClick={e => this.sortPlayer('powerPlayPoints')}
-                >
-                  <b>
-                    <em>Breakdown</em>
-                  </b>
-                </TableCell>
                 {/* <TableCell
                   align="center"
                   style={{ color: 'rgb(234, 140, 0)' }}
@@ -530,6 +528,7 @@ class Stats extends React.Component {
               {this.state.favPlayers &&
                 this.state.favPlayers.map(player => {
                   return (
+                    // <div>
                     <TableRow style={{}} key={player.id}>
                       <TableCell align="center">
                         <a
@@ -539,16 +538,24 @@ class Stats extends React.Component {
                           <b>{player.fullName}</b>
                         </a>
                       </TableCell>
-                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                      <TableCell
+                        style={{ color: 'rgb(234, 140, 0)', align: 'center' }}
+                      >
                         <b>{player.goals}</b>
                       </TableCell>
-                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                      <TableCell
+                        style={{ color: 'rgb(234, 140, 0)', align: 'center' }}
+                      >
                         <b>{player.assists}</b>
                       </TableCell>
-                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                      <TableCell
+                        style={{ color: 'rgb(234, 140, 0)', align: 'center' }}
+                      >
                         <b>{player.points}</b>
                       </TableCell>
-                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                      <TableCell
+                        style={{ color: 'rgb(234, 140, 0)', align: 'center' }}
+                      >
                         <b>{player.plusMinus}</b>
                       </TableCell>
                       <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
@@ -566,95 +573,214 @@ class Stats extends React.Component {
                       <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
                         <b>{player.powerPlayPoints}</b>
                       </TableCell>
-                      {/* <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
-                        <b>{player.powerPlayGoals}</b>
-                      </TableCell> */}
                       <b>
-                        <em>
-                          <VictoryPie
-                            // innerRadius={({ datum }) => datum.y * 0.8}
-                            // cornerRadius={({ datum }) => datum.y * 0.35}
-                            style={{
-                              width: '20%',
-                              data: {
-                                fillOpacity: 0.9,
-                                stroke: '#f57c00',
-                                strokeWidth: 3,
-                              },
-                              labels: {
-                                fontSize: 18,
-                                fill: '#f57c00',
-                                fontWeight: 'bold',
-                              },
-                            }}
-                            colorScale={['696969']}
-                            data={[
-                              {
-                                x: 1,
-                                y: player.goals,
-                                label: `${player.goals} G`,
-                              },
-                              {
-                                x: 2,
-                                y: player.assists,
-                                label: `${player.assists} A`,
-                              },
-                              {
-                                x: 3,
-                                y: player.blocks,
-                                label: `${player.blocks} B`,
-                              },
-                              {
-                                x: 4,
-                                y: player.hits,
-                                label: `${player.hits} H`,
-                              },
-                              {
-                                x: 5,
-                                y: player.powerPlayPoints,
-                                label: `${player.powerPlayPoints} PPP`,
-                              },
-                            ]}
-                            events={[
-                              {
-                                childName: 'all',
-                                target: 'data',
-                                eventHandlers: {
-                                  onClick: () => {
-                                    return [
-                                      {
-                                        target: 'data',
-                                        mutation: ({ style }) => {
-                                          return style.fill === '#f57c00'
-                                            ? null
-                                            : {
-                                                style: {
-                                                  fill: '#f57c00',
-                                                },
-                                              }
-                                        },
-                                      },
-                                      {
-                                        target: 'labels',
-                                        mutation: ({ text }) => {
-                                          return text === 'selected'
-                                            ? null
-                                            : { text: 'selected' }
-                                        },
-                                      },
-                                    ]
-                                  },
-                                },
-                              },
-                            ]}
-                          />
-                        </em>
+                        <em></em>
                       </b>
                     </TableRow>
                   )
                 })}
             </TableBody>
           </Table>
+          {this.state.favPlayers &&
+            this.state.favPlayers.map(player => {
+              return (
+                <Table
+                  key={this.state.favPlayers}
+                  style={{
+                    width: '100%',
+                    marginTop: '10px',
+                    overflowX: 'auto',
+                  }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell
+                        align="right"
+                        style={{ color: 'rgb(234, 140, 0)' }}
+                        onClick={e => this.sortPlayer('fullName')}
+                      >
+                        <b>{player.fullName}</b>
+                      </TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <VictoryPie
+                          // innerRadius={({ datum }) => datum.y * 0.8}
+                          // cornerRadius={({ datum }) => datum.y * 0.35}
+                          style={{
+                            // width: '20%',
+                            data: {
+                              fillOpacity: 0.9,
+                              stroke: '#f57c00',
+                              strokeWidth: 3,
+                            },
+                            labels: {
+                              fontSize: 15,
+                              fill: '#f57c00',
+                              fontWeight: 'bold',
+                            },
+                          }}
+                          containerComponent={
+                            <VictoryContainer
+                              // padding={50}
+                              width="300px"
+                              height="250px"
+                            />
+                          }
+                          colorScale={['696969']}
+                          data={[
+                            {
+                              x: 1,
+                              y: player.goals,
+                              label: `${player.goals} G`,
+                            },
+                            {
+                              x: 2,
+                              y: player.assists,
+                              label: `${player.assists} A`,
+                            },
+                            {
+                              x: 3,
+                              y: player.blocks,
+                              label: `${player.blocks} B`,
+                            },
+                            {
+                              x: 4,
+                              y: player.hits,
+                              label: `${player.hits} H`,
+                            },
+                            {
+                              x: 5,
+                              y: player.powerPlayPoints,
+                              label: `${player.powerPlayPoints} PPP`,
+                            },
+                          ]}
+                          events={[
+                            {
+                              childName: 'all',
+                              target: 'data',
+                              eventHandlers: {
+                                onClick: () => {
+                                  return [
+                                    {
+                                      target: 'data',
+                                      mutation: ({ style }) => {
+                                        return style.fill === '#f57c00'
+                                          ? null
+                                          : {
+                                              style: {
+                                                fill: '#f57c00',
+                                              },
+                                            }
+                                      },
+                                    },
+                                    {
+                                      target: 'labels',
+                                      mutation: ({ text }) => {
+                                        return text === 'selected'
+                                          ? null
+                                          : { text: 'selected' }
+                                      },
+                                    },
+                                  ]
+                                },
+                              },
+                            },
+                          ]}
+                        />
+                      </TableCell>
+                      <TableCell style={{ color: 'rgb(234, 140, 0)' }}>
+                        <VictoryPie
+                          // innerRadius={({ datum }) => datum.y * 0.8}
+                          // cornerRadius={({ datum }) => datum.y * 0.35}
+                          style={{
+                            // width: '20%',
+                            data: {
+                              fillOpacity: 0.9,
+                              stroke: '#f57c00',
+                              strokeWidth: 3,
+                            },
+                            labels: {
+                              fontSize: 15,
+                              fill: '#f57c00',
+                              fontWeight: 'bold',
+                            },
+                          }}
+                          containerComponent={
+                            <VictoryContainer
+                              // padding={50}
+                              width="300px"
+                              height="250px"
+                            />
+                          }
+                          colorScale={['696969']}
+                          data={[
+                            {
+                              x: 1,
+                              y: player.goals,
+                              label: `${player.goals} G`,
+                            },
+                            {
+                              x: 2,
+                              y: player.assists,
+                              label: `${player.assists} A`,
+                            },
+                            {
+                              x: 3,
+                              y: player.blocks,
+                              label: `${player.blocks} B`,
+                            },
+                            {
+                              x: 4,
+                              y: player.hits,
+                              label: `${player.hits} H`,
+                            },
+                            {
+                              x: 5,
+                              y: player.powerPlayPoints,
+                              label: `${player.powerPlayPoints} PPP`,
+                            },
+                          ]}
+                          events={[
+                            {
+                              childName: 'all',
+                              target: 'data',
+                              eventHandlers: {
+                                onClick: () => {
+                                  return [
+                                    {
+                                      target: 'data',
+                                      mutation: ({ style }) => {
+                                        return style.fill === '#f57c00'
+                                          ? null
+                                          : {
+                                              style: {
+                                                fill: '#f57c00',
+                                              },
+                                            }
+                                      },
+                                    },
+                                    {
+                                      target: 'labels',
+                                      mutation: ({ text }) => {
+                                        return text === 'selected'
+                                          ? null
+                                          : { text: 'selected' }
+                                      },
+                                    },
+                                  ]
+                                },
+                              },
+                            },
+                          ]}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                </Table>
+              )
+            })}
         </div>
       </Layout>
     )
